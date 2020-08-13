@@ -1,0 +1,161 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+from typing import List
+from nvidia_clara.grpc import common_pb2
+
+
+class PipelineDefinition:
+
+    def __init__(self, content: str = None, name: str = None):
+        self._content = content
+        self._name = name
+
+    @property
+    def content(self):
+        """Text content of a pipeline definition.
+
+        Content is typed as a "System.String" to avoid encoding related issues."""
+        return self._content
+
+    @content.setter
+    def content(self, content: str):
+        """Text content of a pipeline definition.
+
+        Content is typed as a "System.String" to avoid encoding related issues."""
+        self._content = content
+
+    @property
+    def name(self):
+        """The name of the pipeline definition.
+
+        Not the name of the pipeline as defined by the definition.
+
+        Example: clara/examples/my-pipeline.yml
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        """The name of the pipeline definition.
+
+        Not the name of the pipeline as defined by the definition.
+
+        Example: clara/examples/my-pipeline.yml
+        """
+        self._name = name
+
+
+class PipelineId:
+
+    def __init__(self, value: str):
+        if (value == "") or (value is None):
+            raise Exception("Value arguement must be initialized to non-null value")
+
+        self._value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    def _eq_(self, other):
+        return self._value == other._value
+
+    def _ne_(self, other):
+        return not (self == other)
+
+    def _repr_(self):
+        return "%s" % (self._value)
+
+    def _str_(self):
+        return "%s" % (self._value)
+
+    def _hash_(self):
+        return hash(self._value)
+
+    def to_grpc_value(self):
+        id = common_pb2.Identifier()
+        id.value = self._value
+        return id
+
+
+class PipelineDetails:
+
+    def __init__(self, pipeline_id: PipelineId = None, name: str = None, definition: List[PipelineDefinition] = None):
+        self._pipeline_id = pipeline_id
+        self._name = name
+        self._definiton = definition
+
+    @property
+    def pipeline_id(self):
+        """Unique identifier of the pipeline."""
+        return self._pipeline_id
+
+    @pipeline_id.setter
+    def pipeline_id(self, pipeline_id: PipelineId):
+        """Unique identifier of the pipeline."""
+        self._pipeline_id = pipeline_id
+
+    @property
+    def name(self):
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
+        self._name = name
+
+    @property
+    def definition(self):
+        """
+        The definition of the pipeline.
+
+        Clara pipeline definitions can be multi-file.
+        """
+        return self._definiton
+
+    @definition.setter
+    def definition(self, definition: List[PipelineDefinition]):
+        """
+        The definition of the pipeline.
+
+        Clara pipeline definitions can be multi-file.
+        """
+        self._definiton = definition
+
+
+class PipelineInfo:
+
+    def __init__(self, pipeline_id: PipelineId = None, name: str = None):
+        self._pipeline_id = pipeline_id
+        self._name = name
+
+    @property
+    def pipeline_id(self):
+        return self._pipeline_id
+
+    @pipeline_id.setter
+    def pipeline_id(self, pipeline_id: PipelineId):
+        self._pipeline_id = pipeline_id
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        self._name = name

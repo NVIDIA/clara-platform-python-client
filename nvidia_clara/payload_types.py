@@ -1,0 +1,178 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+from enum import Enum
+from typing import List
+from nvidia_clara.grpc import common_pb2, payloads_pb2
+
+
+class PayloadType(Enum):
+    Unknown = payloads_pb2.PAYLOAD_TYPE_UNKNOWN
+
+    Pipeline = payloads_pb2.PAYLOAD_TYPE_PIPELINE
+
+    Reusable = payloads_pb2.PAYLOAD_TYPE_REUSABLE
+
+    Minimum = Pipeline
+
+    Maximum = Reusable
+
+
+class PayloadFileDetails:
+
+    def __init__(self, other: payloads_pb2.PayloadFileDetails = None, mode: int = None, name: str = None,
+                 size: int = None):
+        """
+        Args:
+            mode(int): Permissions
+            name(str): File Path Location
+            size(int): Size of File
+            other(payloads_pb2.PayloadFileDetails): If specified, object information replicated
+        """
+        if other is None:
+            if mode is None:
+                raise Exception("Mode parameter must be initalized to a non-null integer value")
+            if (name is None) or (name == ""):
+                raise Exception("Name parameter must be initalized to a non-null string value")
+            if size is None:
+                raise Exception("Size must be  to a non-null integer value")
+            self._mode = mode
+            self._name = name
+            self._size = size
+        else:
+            self._mode = other.mode
+            self._name = other.name
+            self._size = other.size
+
+    @property
+    def mode(self):
+        """
+        Mode of the file.
+
+        See [https://en.wikipedia.org/wiki/Chmod] for additional information.
+        """
+        return self._mode
+
+    @mode.setter
+    def mode(self, mode: int):
+        """
+        Mode of the file.
+
+        See [https://en.wikipedia.org/wiki/Chmod] for additional information.
+        """
+        self._mode = mode
+
+    @property
+    def name(self):
+        """
+        Unique (withing a payload) name of the file; in path format.
+
+        File names are relative to the root of the payload, and should not be rooted paths (prefixed with a '/' character).
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name: str):
+        """
+        Unique (withing a payload) name of the file; in path format.
+
+        File names are relative to the root of the payload, and should not be rooted paths (prefixed with a '/' character).
+        """
+        self._name = name
+
+    @property
+    def size(self):
+        """Size, in bytes, of the file."""
+        return self._size
+
+    @size.setter
+    def size(self, size: int):
+        """Size, in bytes, of the file."""
+        self._size = size
+
+    def _eq_(self, other):
+        return (self._mode == other.getMode()) and (self._name == other.getName()) and (
+            self._size == other.getSize())
+
+    def _ne_(self, other):
+        return not (self == other)
+
+    def _hash_(self):
+        return hash((self._mode, self._name, self._size))
+
+
+class PayloadId:
+
+    def __init__(self, value: str = None):
+        if value == None:
+            raise Exception("Arguement 'Value' must be initialized to non-null or empty string")
+
+        self._value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    def _eq_(self, other):
+        return self._value == other._value
+
+    def _ne_(self, other):
+        return not (self == other)
+
+    def _repr_(self):
+        return "%s" % (self._value)
+
+    def _str_(self):
+        return "%s" % (self._value)
+
+    def _hash_(self):
+        return hash(self._value)
+
+    def to_grpc_value(self):
+        id = common_pb2.Identifier()
+        id.value = self._value
+        return id
+
+
+class PayloadDetails:
+
+    def __init__(self, payload_id: PayloadId, file_details: List[PayloadFileDetails],
+                 payload_type: payloads_pb2.PayloadType):
+        self._payload_id = payload_id
+        self._file_details = file_details
+        self._payload_type = payload_type
+
+    @property
+    def payload_id(self):
+        """Gets the unique identifier of the payload."""
+        return self._payload_id
+
+    @payload_id.setter
+    def payload_id(self, payload_id: PayloadId):
+        """Sets the unique identifier of the payload."""
+        self._payload_id = payload_id
+
+    @property
+    def file_details(self):
+        """Gets list of files contained in the payload."""
+        return self._file_details
+
+    @file_details.setter
+    def file_details(self, file_details: List[PayloadFileDetails]):
+        """Sets a list of files contained in the payload."""
+        self._file_details = file_details
+
+    @property
+    def payload_type(self):
+        """Gets a list of files contained in the payload."""
+        return self._payload_type
+
+    @payload_type.setter
+    def payload_type(self, payload_type: payloads_pb2.PayloadType):
+        """Sets a list of files contained in the payload."""
+        self._payload_type = payload_type
