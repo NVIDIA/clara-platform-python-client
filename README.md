@@ -18,7 +18,7 @@ An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. 
 * [Grpcio-Testing (For Running Pytests)](https://pypi.org/project/grpcio-testing)
 * [Pytest (For Running Pytests)](https://pypi.org/project/pytest)
 
-### Getting Started
+## Getting Started
 
 Method #1 for Package Setupt (Recommended)
 ```
@@ -32,6 +32,7 @@ $ export PYTHONPATH=<Local path to /clara-platform-python-client>
 $ pip3 install grpcio
 $ pip3 install protobuf
 ```
+## Examples
 
 ### Jobs Client Example
 
