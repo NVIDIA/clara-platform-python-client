@@ -183,13 +183,19 @@ class PipelinesClient(BaseClient, PipelinesClientStub):
 
         info_list = []
 
-        for item in response:
-            info = pipeline_types.PipelineInfo(
-                pipeline_id=pipeline_types.PipelineId(item.details.pipeline_id.value),
-                name=item.details.name
-            )
+        responses = [resp for resp in response]
 
-            info_list.append(info)
+        if len(responses) > 0:
+            for item in responses:
+                if (item.details is None) or (item.details.pipeline_id.value == ''):
+                    continue
+
+                info = pipeline_types.PipelineInfo(
+                    pipeline_id=pipeline_types.PipelineId(item.details.pipeline_id.value),
+                    name=item.details.name
+                )
+
+                info_list.append(info)
 
         return info_list
 
