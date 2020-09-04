@@ -35,9 +35,6 @@ $ pip3 install grpcio
 $ pip3 install protobuf
 ```
 
-
-## Examples
-
 ### Jobs Client Example
 
 ```python
