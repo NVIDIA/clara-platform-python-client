@@ -407,15 +407,15 @@ class JobsClient(BaseClient, JobsClientStub):
 
         responses = [resp for resp in response]
 
+        result = []
+
         if len(responses) > 0:
 
             self.check_response_header(header=responses[0].header)
 
-            result = []
-
             for item in responses:
 
-                if item.job_details is None:
+                if (item.job_details is None) or (item.job_details.job_id.value == ''):
                     continue
 
                 info = job_types.JobInfo(
@@ -433,9 +433,7 @@ class JobsClient(BaseClient, JobsClientStub):
 
                 result.append(info)
 
-            return result
-
-        return None
+        return result
 
     def start_job(self, job_id: job_types.JobId, named_values: HashMap[str, str] = None,
                   timeout=None) -> job_types.JobToken:

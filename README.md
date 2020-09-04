@@ -1,4 +1,4 @@
-[![NVIDIA](https://gitlab-master.nvidia.com/Clara/python-api-client/-/raw/master/ext/NVIDIA_horo_white.png)](https://docs.nvidia.com/clara/deploy/index.html)
+[![NVIDIA](https://github.com/KavinKrishnan/clara-platform-python-client/blob/master/ext/NVIDIA_hero_white.png?raw=true)](https://docs.nvidia.com/clara/deploy/index.html)
 
 # Clara Deploy Python Client
 An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. Utilize the clients within the **nvidia_clara** package to manage jobs, pipelines, payloads, and models. Each client has an associated set of objects which are defined in seperate 'types' modules (also can be found in nvidia_clara). Look at the examples below to learn more on each client to get started!
@@ -18,14 +18,15 @@ An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. 
 * [Grpcio-Testing (For Running Pytests)](https://pypi.org/project/grpcio-testing)
 * [Pytest (For Running Pytests)](https://pypi.org/project/pytest)
 
-### Installation
-
+### Getting Started
+```
+$ sudo pip3 install <Insert Path For /clara-platform-python-client>
+```
+or
 ```
 $ export PYTHONPATH=<Local path to /python-api-client Directory>
 $ pip3 install grpcio
 $ pip3 install protobuf
-$ pip3 install grpcio-testing
-$ pip3 install pytest
 ```
 
 ### Jobs Client Example
@@ -238,4 +239,11 @@ $ pip3 install pytest
 
 # Gets list of operator logs from job
 >>> jobs_logs = jobs_client.job_logs(job_id=job_id, operator_name="dicom-reader")
+```
+
+### Running Pytests
+```
+$ pip3 install grpcio-testing
+$ pip3 install pytest
+$ pytest
 ```
