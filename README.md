@@ -1,4 +1,4 @@
-[![NVIDIA](https://github.com/KavinKrishnan/clara-platform-python-client/blob/master/ext/NVIDIA_hero_white.png?raw=true)](https://docs.nvidia.com/clara/deploy/index.html)
+[![NVIDIA](https://github.com/NVIDIA/clara-platform-python-client/blob/master/ext/NVIDIA_horo_white.png?raw=true)](https://docs.nvidia.com/clara/deploy/index.html)
 
 # Clara Deploy Python Client
 An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. Utilize the clients within the **nvidia_clara** package to manage jobs, pipelines, payloads, and models. Each client has an associated set of objects which are defined in seperate 'types' modules (also can be found in nvidia_clara). Look at the examples below to learn more on each client to get started!
