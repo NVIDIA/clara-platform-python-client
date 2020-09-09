@@ -11,8 +11,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://gitlab-master.nvidia.com/Clara/sdk/-/tree/master/Platform/Client_Python",
-    packages=['nvidia_clara'],
     install_requires=['grpcio', 'protobuf'],
+    packages=setuptools.find_packages('.'),
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
