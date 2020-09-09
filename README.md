@@ -122,7 +122,7 @@ $ pip3 install protobuf
 >>> pipeline_client.remove_pipeline(pipeline_id=pipeline_id)
 ```
 
-### Payloads Client Example</h3></title>
+### Payloads Client Example
 
 ```python
 >>> from payloads_client import PayloadsClient
@@ -173,7 +173,7 @@ $ pip3 install protobuf
 525414
 ```
 
-### Spleen Segmentation Combined Example - Creating Pipeline/Job and Uploading/Downloading Payload</h3></title>
+### Spleen Segmentation Combined Example - Creating Pipeline/Job and Uploading/Downloading Payload
 
 ```python
 >>> from nvidia_clara.jobs_client import JobsClient
