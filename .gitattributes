@@ -1,5 +1,5 @@
 * -text
 .gitattributes  eol=lf
 .gitignore      eol=lf
-*.[Pp][Yy]      text
-*.[Mm][Dd]      text
+*.[Pp][Yy]      eol=lf
+*.[Mm][Dd]      eol=lf
