@@ -22,6 +22,7 @@ setuptools.setup(
     version="0.7.0",
     author="Clara Deploy",
     description="Python package to interact with Clara Platform Server API",
+    license='Apache Software License (http://www.apache.org/licenses/LICENSE-2.0)',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://gitlab-master.nvidia.com/Clara/sdk/-/tree/master/Platform/Client_Python",
@@ -30,7 +31,7 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
-        'License :: OSI Approved :: MIT License'
+        'License :: OSI Approved :: Apache Software License'
     ],
     python_requires='>=3.6',
 )
