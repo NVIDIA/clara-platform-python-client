@@ -8,7 +8,7 @@ to the project.
 ### License.
 
 You hereby represent that all present, past and future contributions are governed by the
-[MIT License](https://opensource.org/licenses/MIT)
+[Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
 copyright statement.
 
 This entails that to the extent possible under law, you transfer all copyright and related or neighboring rights
