@@ -18,14 +18,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="ClaraClient",
-    version="0.7.0",
+    name="claraclient",
+    version="0.7.1",
     author="Clara Deploy",
     description="Python package to interact with Clara Platform Server API",
     license='Apache Software License (http://www.apache.org/licenses/LICENSE-2.0)',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab-master.nvidia.com/Clara/sdk/-/tree/master/Platform/Client_Python",
+    url="https://github.com/NVIDIA/clara-platform-python-client",
     install_requires=['grpcio', 'protobuf'],
     packages=setuptools.find_packages('.'),
     classifiers=[
