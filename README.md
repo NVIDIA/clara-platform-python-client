@@ -24,18 +24,10 @@ An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. 
 
 ## Getting Started
 
-### Package Setup Options
+### Package Installation
 
-Method #1 (Recommended)
 ```
-$ sudo pip3 install <Insert Path For /clara-platform-python-client>
-```
-
-Method #2
-```
-$ export PYTHONPATH=<Local path to /clara-platform-python-client>
-$ pip3 install grpcio
-$ pip3 install protobuf
+$ pip install claraclient
 ```
 
 ### Jobs Client Example
