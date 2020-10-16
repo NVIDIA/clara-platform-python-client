@@ -168,6 +168,7 @@ def test_create_pipeline_with_id():
         print(pipeline_id)
         assert pipeline_id.value == '92656d79fa414db6b294069c0e9e6df5'
 
+
 def test_list_pipeline():
     requests = [
         pipelines_pb2.PipelinesListRequest(
