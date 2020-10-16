@@ -28,6 +28,11 @@ class PipelinesStub(object):
     Args:
       channel: A grpc.Channel.
     """
+    self.AddMetadata = channel.unary_unary(
+        '/nvidia.clara.platform.Pipelines/AddMetadata',
+        request_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesAddMetadataRequest.SerializeToString,
+        response_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesAddMetadataResponse.FromString,
+        )
     self.Create = channel.stream_unary(
         '/nvidia.clara.platform.Pipelines/Create',
         request_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesCreateRequest.SerializeToString,
@@ -48,6 +53,11 @@ class PipelinesStub(object):
         request_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveRequest.SerializeToString,
         response_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveResponse.FromString,
         )
+    self.RemoveMetadata = channel.unary_unary(
+        '/nvidia.clara.platform.Pipelines/RemoveMetadata',
+        request_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveMetadataRequest.SerializeToString,
+        response_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveMetadataResponse.FromString,
+        )
     self.Update = channel.stream_unary(
         '/nvidia.clara.platform.Pipelines/Update',
         request_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesUpdateRequest.SerializeToString,
@@ -58,6 +68,13 @@ class PipelinesStub(object):
 class PipelinesServicer(object):
   # missing associated documentation comment in .proto file
   pass
+
+  def AddMetadata(self, request, context):
+    """Requests the addition of metadata to a pipeline.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
 
   def Create(self, request_iterator, context):
     """Requests the creation of a new pipeline.
@@ -87,6 +104,13 @@ class PipelinesServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def RemoveMetadata(self, request, context):
+    """Requests the removal of specified metadata of a pipeline.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def Update(self, request_iterator, context):
     """Requests an update to a known pipeline definition.
     """
@@ -97,6 +121,11 @@ class PipelinesServicer(object):
 
 def add_PipelinesServicer_to_server(servicer, server):
   rpc_method_handlers = {
+      'AddMetadata': grpc.unary_unary_rpc_method_handler(
+          servicer.AddMetadata,
+          request_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesAddMetadataRequest.FromString,
+          response_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesAddMetadataResponse.SerializeToString,
+      ),
       'Create': grpc.stream_unary_rpc_method_handler(
           servicer.Create,
           request_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesCreateRequest.FromString,
@@ -116,6 +145,11 @@ def add_PipelinesServicer_to_server(servicer, server):
           servicer.Remove,
           request_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveRequest.FromString,
           response_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveResponse.SerializeToString,
+      ),
+      'RemoveMetadata': grpc.unary_unary_rpc_method_handler(
+          servicer.RemoveMetadata,
+          request_deserializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveMetadataRequest.FromString,
+          response_serializer=nvidia_dot_clara_dot_platform_dot_pipelines__pb2.PipelinesRemoveMetadataResponse.SerializeToString,
       ),
       'Update': grpc.stream_unary_rpc_method_handler(
           servicer.Update,
