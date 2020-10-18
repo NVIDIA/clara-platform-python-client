@@ -129,12 +129,16 @@ class PipelinesClient(BaseClient, PipelinesClientStub):
         return False
 
     def create_pipeline(self, definition: List[pipeline_types.PipelineDefinition],
+                        pipeline_id: pipeline_types.PipelineId = None,
                         timeout=None) -> pipeline_types.PipelineId:
         """
         Requests the creation of a new pipeline by Clara.
 
         Args:
             definition: Definition from which to create the new pipeline.
+            pipeline_id:  Optional argument to force a specific pipeline identifier when replicating deployments.
+                Use ONLY with a high available primary-primary fail-over solution in place AND full understanding on
+                what it does.
 
         Returns:
             pipeline_types.PipelineId of newly created pipeline
@@ -153,8 +157,12 @@ class PipelinesClient(BaseClient, PipelinesClientStub):
                 path=item.name
             )
 
+            if pipeline_id is not None:
+                pipeline_id = pipeline_id.to_grpc_value()
+
             request = pipelines_pb2.PipelinesCreateRequest(
                 definition=item_definition,
+                pipeline_id=pipeline_id,
                 header=self.get_request_header()
             )
 

@@ -25,9 +25,9 @@ An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. 
 ## Getting Started
 
 ### Package Installation
-
+Available From [Pypi](https://pypi.org/project/claraclient/)
 ```
-$ pip install claraclient
+$ python3 -m pip install claraclient
 ```
 
 ### Jobs Client Example
@@ -246,5 +246,6 @@ $ pip install claraclient
 ```
 $ pip3 install grpcio-testing
 $ pip3 install pytest
-$ pytest <Insert Path For /clara-platform-python-client>
+$ export PYTHONPATH="${PYTHONPATH}:<INSERT PATH TO /clara-platform-python-client>"
+$ pytest <INSERT PATH TO /clara-platform-python-client>
 ```

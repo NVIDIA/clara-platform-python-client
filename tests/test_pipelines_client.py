@@ -119,6 +119,56 @@ def test_create_pipeline():
         assert pipeline_id.value == '92656d79fa414db6b294069c0e9e6df5'
 
 
+def test_create_pipeline_with_id():
+    pipeline_yaml = 'pipeline.yaml'
+
+    requests = [
+        pipelines_pb2.PipelinesCreateRequest(
+            header=BaseClient.get_request_header(),
+            pipeline_id=common_pb2.Identifier(
+                value='92656d79fa414db6b294069c0e9e6df5'
+            ),
+            definition=pipelines_pb2.PipelineDefinitionFile(
+                path='pipeline.yaml',
+                content=PIPELINE_TEXT)
+        )
+    ]
+
+    responses = [
+        pipelines_pb2.PipelinesCreateResponse(
+            header=common_pb2.ResponseHeader(
+                code=0,
+                messages=[]),
+            pipeline_id=common_pb2.Identifier(
+                value='92656d79fa414db6b294069c0e9e6df5'
+            )
+        )
+    ]
+
+    stub_method_handlers = [(
+        'Create',
+        'stream_unary',
+        (
+            requests,
+            responses
+        )
+    )]
+
+    # set handlers
+    MockClaraPipelineServiceClient.stub_method_handlers = stub_method_handlers
+
+    def_list = [
+        pipeline_types.PipelineDefinition(name=pipeline_yaml, content=PIPELINE_TEXT)
+    ]
+
+    pipeline_id = pipeline_types.PipelineId('92656d79fa414db6b294069c0e9e6df5')
+
+    with MockClaraPipelineServiceClient('localhost:50051') as client:
+        pipeline_id = client.create_pipeline(definition=def_list, pipeline_id=pipeline_id)
+        print(pipeline_id)
+        assert pipeline_id.value == '92656d79fa414db6b294069c0e9e6df5'
+
+
 def test_list_pipeline():
     requests = [
         pipelines_pb2.PipelinesListRequest(
