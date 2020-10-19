@@ -16,6 +16,7 @@ import datetime
 from typing import List
 from typing import Mapping as HashMap
 import grpc
+import itertools
 from nvidia_clara.grpc import common_pb2, jobs_pb2, jobs_pb2_grpc
 from nvidia_clara.base_client import BaseClient
 import nvidia_clara.job_types as job_types
@@ -268,7 +269,7 @@ class JobsClient(BaseClient, JobsClientStub):
             raise Exception("Job name must be initialized to non-null/non-empty string")
 
         if (job_priority.value < job_types.JobPriority.Minimum.value) or (
-            job_priority.value > job_types.JobPriority.Maximum.value):
+                job_priority.value > job_types.JobPriority.Maximum.value):
             raise Exception("Job priority must contain valid value between minimum and maximum job priority bounds")
 
         input_payloads_identifiers = []
@@ -359,55 +360,47 @@ class JobsClient(BaseClient, JobsClientStub):
 
         empty = job_types.JobFilter()
 
-        request_filter = None
+        request = jobs_pb2.JobsListRequest(
+            header=self.get_request_header()
+        )
 
         if job_filter != empty and job_filter is not None:
             request_filter = jobs_pb2.JobsListRequest.JobFilter
 
             if job_filter.completed_before is not None:
                 seconds = (job_filter.completed_before - datetime.datetime(1, 1, 1)).total_seconds()
-                request_filter.completed_before = common_pb2.Timestamp(value=seconds)
+                request.filter.completed_before = common_pb2.Timestamp(value=seconds)
 
             if job_filter.created_after is not None:
                 seconds = (job_filter.created_after - datetime.datetime(1, 1, 1)).total_seconds()
-                request_filter.created_after = common_pb2.Timestamp(value=seconds)
+                request.filter.created_after = common_pb2.Timestamp(value=seconds)
 
             if job_filter.has_job_state is not None:
                 if len(job_filter.has_job_state) > 0:
                     for state in job_filter.has_job_state:
-                        if (state < job_types.JobState.Minimum) or (state > job_types.JobState.Maximum):
+                        if (state.value < job_types.JobState.Minimum.value) or (
+                                state.value > job_types.JobState.Maximum.value):
                             raise Exception("Job states in filter must be within " + str(
                                 job_types.JobState.Minimum) + " and " + str(
                                 job_types.JobState.Maximum) + ", found:" + str(state))
 
-                        request_filter.has_state.append(state)
+                        request.filter.has_state.append(state.value)
 
             if job_filter.has_job_status is not None:
                 if len(job_filter.has_job_status) > 0:
                     for status in job_filter.has_job_status:
-                        if (status < job_types.JobStatus.Minimum) or (status > job_types.JobStatus.Maximum):
+                        if (status.value < job_types.JobStatus.Minimum.value) or (
+                                status.value > job_types.JobStatus.Maximum.value):
                             raise Exception("Job status in filter must be within " + str(
                                 job_types.JobStatus.Minimum) + " and " + str(
                                 job_types.JobStatus.Maximum) + ", found:" + str(status))
 
-                        request_filter.has_status.append(status)
+                        request.filter.has_status.append(status.value[0])
 
             if job_filter.pipeline_ids is not None:
                 if len(job_filter.pipeline_ids) > 0:
                     for pipe_id in job_filter.pipeline_ids:
-                        request_filter.pipeline_id.add(pipe_id.to_grpc_value())
-
-        request = None
-
-        if job_filter is not None:
-            request = jobs_pb2.JobsListRequest(
-                header=self.get_request_header(),
-                filter=request_filter
-            )
-        else:
-            request = jobs_pb2.JobsListRequest(
-                header=self.get_request_header()
-            )
+                        request.filter.pipeline_id.append(pipe_id.to_grpc_value())
 
         response = self._stub.List(request, timeout=timeout)
 

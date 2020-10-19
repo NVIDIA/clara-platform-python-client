@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from nvidia_clara.jobs_client import JobsClient
+import nvidia_clara.job_types as job_types
 import nvidia_clara.pipeline_types as pipeline_types
 
 # Client Creation with IP and Port of running instance of Clara
@@ -21,8 +22,11 @@ clara_port = "31851"
 
 jobs_client = JobsClient(target=clara_ip_address, port=clara_port)
 
-# List Current Jobs
-job_list = jobs_client.list_jobs()
+# Creates Filter of Healthy Jobs - Additionally could filter by Pipeline Id, State, Stop Time, and Start Time
+job_filter = job_types.JobFilter(has_job_status=[job_types.JobStatus.Healthy])
+
+# List Current Jobs with Optional Filter
+job_list = jobs_client.list_jobs(job_filter=job_filter)
 print(job_list)
 
 # Identifier of created pipeline (ex. HQS)
