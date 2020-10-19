@@ -42,8 +42,11 @@ $ python3 -m pip install claraclient
 
 >>> jobs_client = JobsClient(target=clara_ip_address, port=clara_port)
 
-# List Current Jobs
->>> job_list = jobs_client.list_jobs()
+# Creates Filter of Healthy Jobs - Additionally could filter by Pipeline Id, State, Stop Time, and Start Time
+>>> job_filter = job_types.JobFilter(has_job_status=[job_types.JobStatus.Healthy])
+
+# List Current Jobs with Optional Filter
+>>> job_list = jobs_client.list_jobs(job_filter=job_filter)
 [<job_types.JobInfo object at 0x058908E0>, <job_types.JobInfo object at 0x063208E0>]
 
 # Identifier of created pipeline (ex. HQS)
