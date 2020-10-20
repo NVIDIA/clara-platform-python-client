@@ -34,6 +34,7 @@ $ python3 -m pip install claraclient
 
 ```python
 >>> from nvidia_clara.jobs_client import JobsClient
+>>> import nvidia_clara.job_types as job_types
 >>> import nvidia_clara.pipeline_types as pipeline_types
 
 # Client Creation with IP and Port of running instance of Clara
