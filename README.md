@@ -39,11 +39,11 @@ $ python3 -m pip install claraclient
 
 # Client Creation with IP and Port of running instance of Clara
 >>> clara_ip_address = "10.0.0.1"
->>> clara_port = "31851"
+>>> clara_port = "30031"
 
 >>> jobs_client = JobsClient(target=clara_ip_address, port=clara_port)
 
-# Creates Filter of Healthy Jobs - Additionally could filter by Pipeline Id, State, Stop Time, and Start Time
+# Creates Filter of Healthy Jobs - Additionally could filter by Pipeline Id, State, Completion Time, and Creation Time
 >>> job_filter = job_types.JobFilter(has_job_status=[job_types.JobStatus.Healthy])
 
 # List Current Jobs with Optional Filter
@@ -94,7 +94,7 @@ $ python3 -m pip install claraclient
 
 # Client Creation with IP and Port of running instance of Clara
 >>> clara_ip_address = "10.0.0.1"
->>> clara_port = "31851"
+>>> clara_port = "30031"
 
 >>> pipeline_client = PipelinesClient(target=clara_ip_address, port=clara_port)
 
@@ -129,7 +129,7 @@ $ python3 -m pip install claraclient
 
 # Client Creation with IP and Port of running instance of Clara
 >>> clara_ip_address = "10.0.0.1"
->>> clara_port = "31851"
+>>> clara_port = "30031"
 
 >>> payload_client = PayloadsClient(target=clara_ip_address, port=clara_port)
 
@@ -184,7 +184,7 @@ $ python3 -m pip install claraclient
 
 # Clients creation
 >>> clara_ip_address = "10.0.0.1"
->>> clara_port = "30407"
+>>> clara_port = "30031"
 
 >>> jobs_client = JobsClient(target=clara_ip_address, port=clara_port)
 >>> payloads_client = PayloadsClient(target=clara_ip_address, port=clara_port)
