@@ -19,7 +19,7 @@ import nvidia_clara.pipeline_types as pipeline_types
 # Client Creation with IP and Port of running instance of Clara
 
 clara_ip_address = "10.0.0.1"
-clara_port = "31851"
+clara_port = "30031"
 
 pipeline_client = PipelinesClient(target=clara_ip_address, port=clara_port)
 

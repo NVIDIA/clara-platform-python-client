@@ -463,7 +463,7 @@ class JobsClient(BaseClient, JobsClientStub):
 
         if named_values is not None:
             for item in named_values.keys():
-                nvp = jobs_pb2.JobsStartRequest.Types.NamesValue(
+                nvp = jobs_pb2.JobsStartRequest.NamedValue(
                     name=item,
                     value=named_values.get(item)
                 )

@@ -21,7 +21,7 @@ from pathlib import Path
 
 # Clients creation
 clara_ip_address = "10.0.0.1"
-clara_port = "31851"
+clara_port = "30031"
 
 jobs_client = JobsClient(target=clara_ip_address, port=clara_port)
 payloads_client = PayloadsClient(target=clara_ip_address, port=clara_port)

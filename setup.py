@@ -19,8 +19,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="claraclient",
-    version="0.7.3",
-    author="Clara Deploy",
+    version="0.7.5",
+    author="NVIDIA Clara Deploy",
     description="Python package to interact with Clara Platform Server API",
     license='Apache Software License (http://www.apache.org/licenses/LICENSE-2.0)',
     long_description=long_description,
