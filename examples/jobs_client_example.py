@@ -29,11 +29,11 @@ job_filter = job_types.JobFilter(has_job_status=[job_types.JobStatus.Healthy])
 job_list = jobs_client.list_jobs(job_filter=job_filter)
 print(job_list)
 
-# Identifier of created pipeline (ex. HQS)
-hqs_pipeline_id = "f9a843935e654a30beb9d1b8352bfaac"
+# Identifier of created pipeline (ex. colon tumor segmentation)
+colon_tumor_pipeline_id = "f9a843935e654a30beb9d1b8352bfaac"
 
 # Create Job
-job_info = jobs_client.create_job(job_name="hqstest",pipeline_id=pipeline_types.PipelineId(hqs_pipeline_id))
+job_info = jobs_client.create_job(job_name="colontumor",pipeline_id=pipeline_types.PipelineId(colon_tumor_pipeline_id))
 print(job_info.job_id.value)
 
 # Start Job
@@ -46,6 +46,9 @@ job_details = jobs_client.get_status(job_id=job_token.job_id)
 
 print(job_details.job_state)
 print(job_details.job_status)
+
+# Gets List of Operators
+print(job_details.operator_details.keys())
 
 # Try Canceling Job (if still running)
 try:

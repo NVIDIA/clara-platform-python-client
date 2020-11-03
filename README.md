@@ -50,11 +50,11 @@ $ python3 -m pip install claraclient
 >>> job_list = jobs_client.list_jobs(job_filter=job_filter)
 [<job_types.JobInfo object at 0x058908E0>, <job_types.JobInfo object at 0x063208E0>]
 
-# Identifier of created pipeline (ex. HQS)
->>> hqs_pipeline_id = "dd05c5b79461402cb0a610d4f0fce36f"
+# Identifier of created pipeline (ex. colon tumor segmentation)
+>>> colon_tumor_pipeline_id = "dd05c5b79461402cb0a610d4f0fce36f"
 
 # Create Job
->>> job_info = jobs_client.create_job(job_name="hqstest",pipeline_id=pipeline_types.PipelineId(hqs_pipeline_id))
+>>> job_info = jobs_client.create_job(job_name="colontumor",pipeline_id=pipeline_types.PipelineId(colon_tumor_pipeline_id))
 <job_types.JobInfo object at 0x05369B78>
 
 >>> job_info.job_id.value
@@ -69,6 +69,10 @@ $ python3 -m pip install claraclient
 
 >>> job_token.job_status
 1
+
+# Gets List of Operators
+>>> job_details.operator_details.keys()
+["colon-tumor-segmentation","dicom-reader","dicom-writer","register-dicom-output","register-volume-images-for-rendering"]
 
 # Get Status of Job from Identifier
 >>> job_details = jobs_client.get_status(job_id=job_token.job_id)
