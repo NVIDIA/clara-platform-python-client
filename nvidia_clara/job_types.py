@@ -14,10 +14,12 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List
+from typing import List, Mapping, TypeVar
 from nvidia_clara.grpc import common_pb2, jobs_pb2
 import nvidia_clara.payload_types as payload_types
 import nvidia_clara.pipeline_types as pipeline_types
+
+T = TypeVar('T')
 
 
 class JobPriority(Enum):
@@ -346,7 +348,8 @@ class JobDetails(JobInfo):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None, messages: List[str] = None):
+                 pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = None,
+                 messages: List[str] = None):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
@@ -360,6 +363,7 @@ class JobDetails(JobInfo):
             pipeline_id=pipeline_id
         )
         self._messages = messages
+        self._operator_details = operator_details
 
     @property
     def messages(self) -> List[str]:
@@ -370,3 +374,13 @@ class JobDetails(JobInfo):
     def messages(self, messages: List[str]):
         """List of messages reported by the job."""
         self._messages = messages
+
+    @property
+    def operator_details(self) -> Mapping[str, Mapping[str, T]]:
+        """Dictionary mapping operator names to operator details"""
+        return self._operator_details
+
+    @operator_details.setter
+    def operator_details(self, operator_details: Mapping[str, Mapping[str, T]]):
+        """Dictionary mapping operator names to operator details"""
+        self._operator_details = operator_details

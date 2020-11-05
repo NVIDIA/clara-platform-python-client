@@ -327,6 +327,16 @@ class JobsClient(BaseClient, JobsClientStub):
 
         self.check_response_header(header=response.header)
 
+        resp_operator_details = response.operator_details
+        operator_details = {}
+
+        for item in resp_operator_details:
+            operator_details[item.name] = {}
+            operator_details[item.name]["created"] = item.created
+            operator_details[item.name]["started"] = item.started
+            operator_details[item.name]["stopped"] = item.stopped
+            operator_details[item.name]["status"] = item.status
+
         result = job_types.JobDetails(
             job_id=job_types.JobId(response.job_id.value),
             job_priority=response.priority,
@@ -338,6 +348,7 @@ class JobsClient(BaseClient, JobsClientStub):
             date_created=self.get_timestamp(response.created),
             date_started=self.get_timestamp(response.started),
             date_stopped=self.get_timestamp(response.stopped),
+            operator_details=operator_details,
             messages=response.messages
         )
 
