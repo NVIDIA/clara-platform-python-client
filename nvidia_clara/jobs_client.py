@@ -13,8 +13,7 @@
 # limitations under the License.
 
 import datetime
-from typing import List
-from typing import Mapping as HashMap
+from typing import List, Mapping
 import grpc
 import itertools
 from nvidia_clara.grpc import common_pb2, jobs_pb2, jobs_pb2_grpc
@@ -42,7 +41,8 @@ class JobsClientStub:
         pass
 
     def create_job(self, pipeline_id: pipeline_types.PipelineId, job_name: str, job_priority: job_types.JobPriority,
-                   input_payloads: List[payload_types.PayloadId] = None) -> job_types.JobInfo:
+                   input_payloads: List[payload_types.PayloadId] = None,
+                   metadata: job_types.JobMetadata = None) -> job_types.JobInfo:
         """
         Creates a new pipeline job record and associate storage payload.
 
@@ -53,11 +53,13 @@ class JobsClientStub:
         Args:
             pipeline_id (pipeline_types.PipelineId): Unique identifier of the pipeline which the job should
                 be instances from.
-            job_name (str): Human readabale name of the job.
+            job_name (str): Human readable name of the job.
             job_priority (job_types.JobPriority): Optional Priority of the job.
                 Affects how and when the server will schedule the job.
-            input_payloads: List of static payloads to include as input for the
-                job.
+            input_payloads (List[payload_types.PayloadId]): [Optional Paramater] List of static payloads to
+                include as input for the job.
+            metadata (job_types.JobMetadata): [Optional Parameter] Metadata (set of key/value pairs) associated with the
+                job
 
         Returns:
             job_types.JobInfo about the newly created pipeline job.
@@ -89,7 +91,7 @@ class JobsClientStub:
         """
         pass
 
-    def start_job(self, job_id: job_types.JobId, named_values: HashMap[str, str] = None) -> job_types.JobToken:
+    def start_job(self, job_id: job_types.JobId, named_values: Mapping[str, str] = None) -> job_types.JobToken:
         """
         Starts a "JobState.Pending" job.
 
@@ -115,6 +117,37 @@ class JobsClientStub:
 
         Returns:
             List of operator logs
+        """
+        pass
+
+    def add_metadata(self, job_id: job_types.JobId, metadata: Mapping[str, str]) -> job_types.JobMetadata:
+        """
+        Requests the addition of metadata to a job.
+
+        Args:
+            job_id (job_types.JobId): Unique identifier of the job whose metadata is to be appended.
+            metadata(job_types.JobMetadata): Set of key/value pairs to be appended to the job metadata. If a metadata
+                    key in the request already exists in the job record, or if duplicate keys are passed in the request,
+                    the job will not be updated and and an error will be returned. Keys are compared using case
+                    insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
+                    the maximum allowed size of a metadata value is 256 bytes. The maximum allowed size for the overall
+                    metadata of an individual job is 4 Megabytes.
+
+        Returns:
+            A job_types.JobMetadata object containing the appended metadata
+        """
+        pass
+
+    def remove_metadata(self, job_id: job_types.JobId, keys: List[str]) -> job_types.JobMetadata:
+        """
+        Requests the removal of metadata from a job.
+
+        Args:
+            job_id: Unique identifier of the job whose metadata is to be removed.
+            keys: List of keys to be removed from the job metadata.
+
+        Returns:
+            A job_types.JobMetadata object containing the updated set of metadata
         """
         pass
 
@@ -238,7 +271,7 @@ class JobsClient(BaseClient, JobsClientStub):
     def create_job(self, pipeline_id: pipeline_types.PipelineId, job_name: str,
                    input_payloads: List[payload_types.PayloadId] = None,
                    job_priority: job_types.JobPriority = job_types.JobPriority.Normal,
-                   timeout=None) -> job_types.JobInfo:
+                   metadata: job_types.JobMetadata = None,  timeout=None) -> job_types.JobInfo:
         """
         Creates a new pipeline job record and associate storage payload.
 
@@ -249,11 +282,13 @@ class JobsClient(BaseClient, JobsClientStub):
         Args:
             pipeline_id (pipeline_types.PipelineId): Unique identifier of the pipeline which the job should
                 be instances from.
-            job_name (str): Human readbale name of the job.
+            job_name (str): Human readable name of the job.
             job_priority (job_types.JobPriority): Optional Priority of the job.
                 Affects how and when the server will schedule the job.
-            input_payloads: List of static payloads to include as input for the
-                job.
+            input_payloads (List[payload_types.PayloadId]): [Optional Paramater] List of static payloads to
+                include as input for the job.
+            metadata (job_types.JobMetadata): [Optional Parameter] Metadata (set of key/value pairs) associated with the
+                job
 
         Returns:
             job_types.JobInfo about the newly created pipeline job.
@@ -287,6 +322,8 @@ class JobsClient(BaseClient, JobsClientStub):
             priority=job_priority.value,
             input_payloads=input_payloads_identifiers
         )
+
+        request.metadata.update(metadata)
 
         response = self._stub.Create(request, timeout=timeout)
 
@@ -349,7 +386,8 @@ class JobsClient(BaseClient, JobsClientStub):
             date_started=self.get_timestamp(response.started),
             date_stopped=self.get_timestamp(response.stopped),
             operator_details=operator_details,
-            messages=response.messages
+            messages=response.messages,
+            metadata=job_types.JobMetadata(job_types.JobId(response.job_id.value), response.metadata)
         )
 
         return result
@@ -438,14 +476,15 @@ class JobsClient(BaseClient, JobsClientStub):
                     pipeline_id=pipeline_types.PipelineId(item.job_details.pipeline_id.value),
                     date_created=self.get_timestamp(item.job_details.timestamp_created),
                     date_started=self.get_timestamp(item.job_details.timestamp_started),
-                    date_stopped=self.get_timestamp(item.job_details.timestamp_stopped)
+                    date_stopped=self.get_timestamp(item.job_details.timestamp_stopped),
+                    metadata=job_types.JobMetadata(job_types.JobId(item.job_id.value), item.metadata)
                 )
 
                 result.append(info)
 
         return result
 
-    def start_job(self, job_id: job_types.JobId, named_values: HashMap[str, str] = None,
+    def start_job(self, job_id: job_types.JobId, named_values: Mapping[str, str] = None,
                   timeout=None) -> job_types.JobToken:
         """
         Starts a "JobState.Pending" job.
@@ -534,3 +573,83 @@ class JobsClient(BaseClient, JobsClientStub):
                 logs_list.append(log)
 
         return logs_list
+
+    def add_metadata(self, job_id: job_types.JobId, metadata: Mapping[str, str], timeout=None) -> job_types.JobMetadata:
+        """
+        Requests the addition of metadata to a job.
+
+        Args:
+            job_id (job_types.JobId): Unique identifier of the job whose metadata is to be appended.
+            metadata(job_types.JobMetadata): Set of key/value pairs to be appended to the job metadata. If a metadata
+                    key in the request already exists in the job record, or if duplicate keys are passed in the request,
+                    the job will not be updated and and an error will be returned. Keys are compared using case
+                    insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
+                    the maximum allowed size of a metadata value is 256 bytes. The maximum allowed size for the overall
+                    metadata of an individual job is 4 Megabytes.
+
+        Returns:
+            A job_types.JobMetadata object containing the appended metadata
+
+        """
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        if (job_id.value is None) or (job_id.value == ""):
+            raise Exception("Job identifier must have instantiated value")
+
+        if metadata is None:
+            raise Exception("Metadata must be an instantiated map")
+
+        request = jobs_pb2.JobsAddMetadataRequest(
+            job_id=job_id.to_grpc_value()
+        )
+
+        request.metadata.update(metadata)
+
+        response = self._stub.AddMetadata(request, timeout)
+
+        self.check_response_header(header=response.header)
+
+        result = job_types.JobMetadata(
+            job_id=job_types.JobId(response.job_id.value),
+            metadata=response.metadata
+        )
+
+        return result
+
+    def remove_metadata(self, job_id: job_types.JobId, keys: List[str], timeout=None) -> job_types.JobMetadata:
+        """
+        Requests the removal of metadata from a job.
+
+        Args:
+            job_id: Unique identifier of the job whose metadata is to be removed.
+            keys: List of keys to be removed from the job metadata.
+
+        Returns:
+            A job_types.JobMetadata object containing the updated set of metadata
+        """
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        if (job_id.value is None) or (job_id.value == ""):
+            raise Exception("Job identifier must have instantiated value")
+
+        if keys is None:
+            raise Exception("Keys paramater must be valid list of metadata keys")
+
+        request = jobs_pb2.JobsRemoveMetadataRequest(
+            job_id=job_id.to_grpc_value()
+        )
+
+        request.keys.extend(keys)
+
+        response = self._stub.RemoveMetadata(request, timeout)
+
+        self.check_response_header(header=response.header)
+
+        result = job_types.JobMetadata(
+            job_id=job_types.JobId(response.job_id.value),
+            metadata=response.metadata
+        )
+
+        return result

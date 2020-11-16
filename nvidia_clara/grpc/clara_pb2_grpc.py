@@ -33,6 +33,11 @@ class ClaraStub(object):
         request_serializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraStopRequest.SerializeToString,
         response_deserializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraStopResponse.FromString,
         )
+    self.Utilization = channel.unary_stream(
+        '/nvidia.clara.platform.Clara/Utilization',
+        request_serializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraUtilizationRequest.SerializeToString,
+        response_deserializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraUtilizationResponse.FromString,
+        )
     self.Version = channel.unary_unary(
         '/nvidia.clara.platform.Clara/Version',
         request_serializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraVersionRequest.SerializeToString,
@@ -45,15 +50,22 @@ class ClaraServicer(object):
   pass
 
   def Stop(self, request, context):
-    """Requests resource cleanup.
+    """Requests the termination of Clara Platform Server and associated resource cleanup.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def Utilization(self, request, context):
+    """Requests utilization data for all Clara Platform managed GPUs.
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def Version(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Requests version information from Clara Platform Server.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -65,6 +77,11 @@ def add_ClaraServicer_to_server(servicer, server):
           servicer.Stop,
           request_deserializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraStopRequest.FromString,
           response_serializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraStopResponse.SerializeToString,
+      ),
+      'Utilization': grpc.unary_stream_rpc_method_handler(
+          servicer.Utilization,
+          request_deserializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraUtilizationRequest.FromString,
+          response_serializer=nvidia_dot_clara_dot_platform_dot_clara__pb2.ClaraUtilizationResponse.SerializeToString,
       ),
       'Version': grpc.unary_unary_rpc_method_handler(
           servicer.Version,
