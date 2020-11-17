@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from enum import Enum
-from typing import List
+from typing import List, Mapping
 from nvidia_clara.grpc import common_pb2, payloads_pb2
 
 
@@ -103,7 +103,7 @@ class PayloadFileDetails:
 
     def _eq_(self, other):
         return (self._mode == other.getMode()) and (self._name == other.getName()) and (
-            self._size == other.getSize())
+                self._size == other.getSize())
 
     def _ne_(self, other):
         return not (self == other)
@@ -147,11 +147,12 @@ class PayloadId:
 
 class PayloadDetails:
 
-    def __init__(self, payload_id: PayloadId, file_details: List[PayloadFileDetails],
-                 payload_type: payloads_pb2.PayloadType):
+    def __init__(self, payload_id: PayloadId = None, file_details: List[PayloadFileDetails] = None,
+                 payload_type: payloads_pb2.PayloadType = None, metadata: Mapping[str, str] = None):
         self._payload_id = payload_id
         self._file_details = file_details
         self._payload_type = payload_type
+        self._metadata = metadata
 
     @property
     def payload_id(self):
@@ -182,3 +183,17 @@ class PayloadDetails:
     def payload_type(self, payload_type: payloads_pb2.PayloadType):
         """Sets a list of files contained in the payload."""
         self._payload_type = payload_type
+
+    @property
+    def metadata(self) -> Mapping[str, str]:
+        """
+        Metadata (set of key/value pairs) associated with the payload
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Mapping[str, str]):
+        """
+        Metadata (set of key/value pairs) associated with the payload
+        """
+        self._metadata = metadata

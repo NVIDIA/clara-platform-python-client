@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import grpc
-from typing import BinaryIO
+from typing import BinaryIO, Mapping, List
 from nvidia_clara.grpc import payloads_pb2, payloads_pb2_grpc
 from nvidia_clara.base_client import BaseClient
 import nvidia_clara.payload_types as payload_types
@@ -21,7 +21,7 @@ import nvidia_clara.payload_types as payload_types
 
 class PayloadsClientStub:
 
-    def create_payload(self) -> payload_types.PayloadDetails:
+    def create_payload(self, metadata: Mapping[str, str] = None) -> payload_types.PayloadDetails:
         """
         Creates a static payload.
 
@@ -92,6 +92,37 @@ class PayloadsClientStub:
         """
         pass
 
+    def add_metadata(self, payload_id: payload_types.PayloadId, metadata: Mapping[str, str]) -> Mapping[str, str]:
+        """
+        Requests the addition of metadata to a payload.
+
+        Args:
+            payload_id (payload_types.PayloadId): Unique identifier of the payload.
+            metadata(Mapping[str, str]): Set of key/value pairs to be appended to the payload metadata. If a metadata
+                    key in the request already exists in the job record, or if duplicate keys are passed in the request,
+                    the payload will not be updated and and an error will be returned. Keys are compared using case
+                    insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
+                    the maximum allowed size of a metadata value is 256 bytes. The maximum allowed size for the overall
+                    metadata of an individual payload is 4 Megabytes.
+
+        Returns:
+            A Mapping[str, str] containing the appended metadata
+        """
+        pass
+
+    def remove_metadata(self, payload_id: payload_types.PayloadId, keys: List[str]) -> Mapping[str, str]:
+        """
+        Requests the removal of metadata from a payload.
+
+        Args:
+            payload_id (payload_types.PayloadId): Unique identifier of the payload.
+            keys: List of keys to be removed from the payload metadata.
+
+        Returns:
+            A Mapping[str, str] containing the updated set of metadata
+        """
+        pass
+
 
 class PayloadsClient(BaseClient, PayloadsClientStub):
     def __init__(self, target: str, port: str = None, stub=None):
@@ -145,7 +176,7 @@ class PayloadsClient(BaseClient, PayloadsClientStub):
             self.close()
         return False
 
-    def create_payload(self, timeout=None) -> payload_types.PayloadDetails:
+    def create_payload(self, metadata: Mapping[str, str] = None, timeout=None) -> payload_types.PayloadDetails:
         """
         Creates a static payload.
 
@@ -159,6 +190,9 @@ class PayloadsClient(BaseClient, PayloadsClientStub):
             raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
 
         request = payloads_pb2.PayloadsCreateRequest(header=self.get_request_header())
+
+        if metadata is not None:
+            request.metadata.update(metadata)
 
         response = self._stub.Create(request, timeout=timeout)
 
@@ -243,7 +277,8 @@ class PayloadsClient(BaseClient, PayloadsClientStub):
             result = payload_types.PayloadDetails(
                 payload_id=payload_types.PayloadId(responses[0].payload_id.value),
                 file_details=file_details,
-                payload_type=responses[0].type
+                payload_type=responses[0].type,
+                metadata=responses[0].metadata
             )
 
             return result
@@ -422,5 +457,79 @@ class PayloadsClient(BaseClient, PayloadsClientStub):
 
         if file_path_used:
             file_object.close()
+
+        return result
+
+    def add_metadata(self, payload_id: payload_types.PayloadId, metadata: Mapping[str, str], timeout=None) -> Mapping[
+        str, str]:
+        """
+        Requests the addition of metadata to a payload.
+
+        Args:
+            payload_id (payload_types.PayloadId): Unique identifier of the payload.
+            metadata(Mapping[str, str]): Set of key/value pairs to be appended to the payload metadata. If a metadata
+                    key in the request already exists in the job record, or if duplicate keys are passed in the request,
+                    the payload will not be updated and and an error will be returned. Keys are compared using case
+                    insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
+                    the maximum allowed size of a metadata value is 256 bytes. The maximum allowed size for the overall
+                    metadata of an individual payload is 4 Megabytes.
+
+        Returns:
+            A Mapping[str, str] containing the appended metadata
+        """
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        if (payload_id.value is None) or (payload_id.value == ""):
+            raise Exception("Payload identifier must have instantiated value")
+
+        if metadata is None:
+            raise Exception("Metadata must be an instantiated map")
+
+        request = payloads_pb2.PayloadsAddMetadataRequest(
+            payload_id=payload_id.to_grpc_value()
+        )
+
+        request.metadata.update(metadata)
+
+        response = self._stub.AddMetadata(request, timeout)
+
+        self.check_response_header(header=response.header)
+
+        result = response.metadata
+
+        return result
+
+    def remove_metadata(self, payload_id: payload_types.PayloadId, keys: List[str], timeout=None) -> Mapping[str, str]:
+        """
+        Requests the removal of metadata from a payload.
+
+        Args:
+            payload_id (payload_types.PayloadId): Unique identifier of the payload.
+            keys: List of keys to be removed from the payload metadata.
+
+        Returns:
+            A Mapping[str, str] containing the updated set of metadata
+        """
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        if (payload_id.value is None) or (payload_id.value == ""):
+            raise Exception("Payload identifier must have instantiated value")
+
+        if keys is None:
+            raise Exception("Keys paramater must be valid list of metadata keys")
+
+        request = payloads_pb2.PayloadsRemoveMetadataRequest(
+            payload_id=payload_id.to_grpc_value()
+        )
+
+        request.keys.extend(keys)
+
+        response = self._stub.RemoveMetadata(request, timeout)
+
+        self.check_response_header(header=response.header)
+
+        result = response.metadata
 
         return result

@@ -283,10 +283,16 @@ class JobInfo(JobToken):
 
     @property
     def metadata(self) -> Mapping[str, str]:
+        """
+        Metadata (set of key/value pairs) associated with the job
+        """
         return self._metadata
 
     @metadata.setter
     def metadata(self, metadata: Mapping[str, str]):
+        """
+        Metadata (set of key/value pairs) associated with the job
+        """
         self._metadata = metadata
 
 

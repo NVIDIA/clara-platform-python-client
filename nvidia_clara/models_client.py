@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import BinaryIO, List
+from typing import BinaryIO, List, Mapping
 import grpc
 from nvidia_clara.grpc import models_pb2, models_pb2_grpc
 from nvidia_clara.base_client import BaseClient
@@ -158,6 +158,37 @@ class ModelsClientStub:
         Args:
             details (model_types.ModelDetails): provides details, including the name of the model.
             input_stream (BinaryIO): Raw model data is read from this stream and persisted into storage by the model repository.
+        """
+        pass
+
+    def add_metadata(self, model_id: model_types.ModelId, metadata: Mapping[str, str]) -> Mapping[str, str]:
+        """
+        Requests the addition of metadata to a model.
+
+        Args:
+            model_id (model_types.ModelId): Unique identifier of the model to download.
+            metadata(Mapping[str, str]): Set of key/value pairs to be appended to the job metadata. If a metadata
+                    key in the request already exists in the model record, or if duplicate keys are passed in the request,
+                    the model will not be updated and and an error will be returned. Keys are compared using case
+                    insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
+                    the maximum allowed size of a metadata value is 256 bytes. The maximum allowed size for the overall
+                    metadata of an individual model is 4 Megabytes.
+
+        Returns:
+            A Mapping[str, str] containing the appended metadata
+        """
+        pass
+
+    def remove_metadata(self, model_id: model_types.ModelId, keys: List[str]) -> Mapping[str, str]:
+        """
+        Requests the removal of metadata from a model.
+
+        Args:
+            model_id (model_types.ModelId): Unique identifier of the model to download.
+            keys: List of keys to be removed from the model metadata.
+
+        Returns:
+            A Mapping[str, str] containing the updated set of metadata
         """
         pass
 
@@ -592,3 +623,77 @@ class ModelsClient(ModelsClientStub, BaseClient):
         )
 
         self.check_response_header(header=response.header)
+
+    def add_metadata(self, model_id: model_types.ModelId, metadata: Mapping[str, str], timeout=None) -> Mapping[
+        str, str]:
+        """
+        Requests the addition of metadata to a model.
+
+        Args:
+            model_id (model_types.ModelId): Unique identifier of the model to download.
+            metadata(Mapping[str, str]): Set of key/value pairs to be appended to the job metadata. If a metadata
+                    key in the request already exists in the model record, or if duplicate keys are passed in the request,
+                    the model will not be updated and and an error will be returned. Keys are compared using case
+                    insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
+                    the maximum allowed size of a metadata value is 256 bytes. The maximum allowed size for the overall
+                    metadata of an individual model is 4 Megabytes.
+
+        Returns:
+            A Mapping[str, str] containing the appended metadata
+        """
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        if (model_id.value is None) or (model_id.value == ""):
+            raise Exception("Model identifier must have instantiated value")
+
+        if metadata is None:
+            raise Exception("Metadata must be an instantiated map")
+
+        request = models_pb2.ModelsAddMetadataRequest(
+            model_id=model_id.to_grpc_value()
+        )
+
+        request.metadata.update(metadata)
+
+        response = self._stub.AddMetadata(request, timeout)
+
+        self.check_response_header(header=response.header)
+
+        result = response.metadata
+
+        return result
+
+    def remove_metadata(self, model_id: model_types.ModelId, keys: List[str], timeout=None) -> Mapping[str, str]:
+        """
+        Requests the removal of metadata from a model.
+
+        Args:
+            model_id (model_types.ModelId): Unique identifier of the model to download.
+            keys: List of keys to be removed from the model metadata.
+
+        Returns:
+            A Mapping[str, str] containing the updated set of metadata
+        """
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        if (model_id.value is None) or (model_id.value == ""):
+            raise Exception("Model identifier must have instantiated value")
+
+        if keys is None:
+            raise Exception("Keys paramater must be valid list of metadata keys")
+
+        request = models_pb2.ModelsRemoveMetadataRequest(
+            model_id=model_id.to_grpc_value()
+        )
+
+        request.keys.extend(keys)
+
+        response = self._stub.RemoveMetadata(request, timeout)
+
+        self.check_response_header(header=response.header)
+
+        result = response.metadata
+
+        return result

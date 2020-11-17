@@ -148,18 +148,14 @@ class PipelineDetails:
     @property
     def metadata(self) -> Mapping[str, str]:
         """
-        Human readable name of the pipeline.
-
-        Not guaranteed to be unique.
+        Metadata (set of key/value pairs) associated with the pipeline
         """
         return self._metadata
 
     @metadata.setter
     def metadata(self, metadata: Mapping[str, str]):
         """
-        Human readable name of the pipeline.
-
-        Not guaranteed to be unique.
+        Metadata (set of key/value pairs) associated with the pipeline
         """
         self._metadata = metadata
 
@@ -173,34 +169,42 @@ class PipelineInfo:
 
     @property
     def pipeline_id(self) -> PipelineId:
+        """Unique identifier of the pipeline."""
         return self._pipeline_id
 
     @pipeline_id.setter
     def pipeline_id(self, pipeline_id: PipelineId):
+        """Unique identifier of the pipeline."""
         self._pipeline_id = pipeline_id
 
     @property
     def name(self) -> str:
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
         return self._name
 
     @name.setter
     def name(self, name: str):
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
         self._name = name
 
     @property
     def metadata(self) -> Mapping[str, str]:
         """
-        Human readable name of the pipeline.
-
-        Not guaranteed to be unique.
+        Metadata (set of key/value pairs) associated with the pipeline
         """
         return self._metadata
 
     @metadata.setter
     def metadata(self, metadata: Mapping[str, str]):
         """
-        Human readable name of the pipeline.
-
-        Not guaranteed to be unique.
+        Metadata (set of key/value pairs) associated with the pipeline
         """
         self._metadata = metadata
