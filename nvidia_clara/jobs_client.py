@@ -42,7 +42,7 @@ class JobsClientStub:
 
     def create_job(self, pipeline_id: pipeline_types.PipelineId, job_name: str, job_priority: job_types.JobPriority,
                    input_payloads: List[payload_types.PayloadId] = None,
-                   metadata: job_types.JobMetadata = None) -> job_types.JobInfo:
+                   metadata: Mapping[str, str] = None) -> job_types.JobInfo:
         """
         Creates a new pipeline job record and associate storage payload.
 
@@ -58,7 +58,7 @@ class JobsClientStub:
                 Affects how and when the server will schedule the job.
             input_payloads (List[payload_types.PayloadId]): [Optional Paramater] List of static payloads to
                 include as input for the job.
-            metadata (job_types.JobMetadata): [Optional Parameter] Metadata (set of key/value pairs) associated with the
+            metadata (Mapping[str, str]): [Optional Parameter] Metadata (set of key/value pairs) associated with the
                 job
 
         Returns:
@@ -120,13 +120,13 @@ class JobsClientStub:
         """
         pass
 
-    def add_metadata(self, job_id: job_types.JobId, metadata: Mapping[str, str]) -> job_types.JobMetadata:
+    def add_metadata(self, job_id: job_types.JobId, metadata: Mapping[str, str]) -> Mapping[str, str]:
         """
         Requests the addition of metadata to a job.
 
         Args:
             job_id (job_types.JobId): Unique identifier of the job whose metadata is to be appended.
-            metadata(job_types.JobMetadata): Set of key/value pairs to be appended to the job metadata. If a metadata
+            metadata(Mapping[str, str]): Set of key/value pairs to be appended to the job metadata. If a metadata
                     key in the request already exists in the job record, or if duplicate keys are passed in the request,
                     the job will not be updated and and an error will be returned. Keys are compared using case
                     insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
@@ -134,11 +134,11 @@ class JobsClientStub:
                     metadata of an individual job is 4 Megabytes.
 
         Returns:
-            A job_types.JobMetadata object containing the appended metadata
+            A Mapping[str, str] containing the appended metadata
         """
         pass
 
-    def remove_metadata(self, job_id: job_types.JobId, keys: List[str]) -> job_types.JobMetadata:
+    def remove_metadata(self, job_id: job_types.JobId, keys: List[str]) -> Mapping[str, str]:
         """
         Requests the removal of metadata from a job.
 
@@ -147,7 +147,7 @@ class JobsClientStub:
             keys: List of keys to be removed from the job metadata.
 
         Returns:
-            A job_types.JobMetadata object containing the updated set of metadata
+            A Mapping[str, str] containing the updated set of metadata
         """
         pass
 
@@ -271,7 +271,7 @@ class JobsClient(BaseClient, JobsClientStub):
     def create_job(self, pipeline_id: pipeline_types.PipelineId, job_name: str,
                    input_payloads: List[payload_types.PayloadId] = None,
                    job_priority: job_types.JobPriority = job_types.JobPriority.Normal,
-                   metadata: job_types.JobMetadata = None,  timeout=None) -> job_types.JobInfo:
+                   metadata: Mapping[str, str] = None, timeout=None) -> job_types.JobInfo:
         """
         Creates a new pipeline job record and associate storage payload.
 
@@ -287,7 +287,7 @@ class JobsClient(BaseClient, JobsClientStub):
                 Affects how and when the server will schedule the job.
             input_payloads (List[payload_types.PayloadId]): [Optional Paramater] List of static payloads to
                 include as input for the job.
-            metadata (job_types.JobMetadata): [Optional Parameter] Metadata (set of key/value pairs) associated with the
+            metadata (Mapping[str, str]): [Optional Parameter] Metadata (set of key/value pairs) associated with the
                 job
 
         Returns:
@@ -323,7 +323,8 @@ class JobsClient(BaseClient, JobsClientStub):
             input_payloads=input_payloads_identifiers
         )
 
-        request.metadata.update(metadata)
+        if metadata is not None:
+            request.metadata.update(metadata)
 
         response = self._stub.Create(request, timeout=timeout)
 
@@ -336,7 +337,8 @@ class JobsClient(BaseClient, JobsClientStub):
             job_status=job_types.JobStatus.Healthy,
             name=job_name,
             payload_id=payload_types.PayloadId(value=response.payload_id.value),
-            pipeline_id=pipeline_id
+            pipeline_id=pipeline_id,
+            metadata=metadata
         )
 
         return result
@@ -387,7 +389,7 @@ class JobsClient(BaseClient, JobsClientStub):
             date_stopped=self.get_timestamp(response.stopped),
             operator_details=operator_details,
             messages=response.messages,
-            metadata=job_types.JobMetadata(job_types.JobId(response.job_id.value), response.metadata)
+            metadata=response.metadata
         )
 
         return result
@@ -477,7 +479,7 @@ class JobsClient(BaseClient, JobsClientStub):
                     date_created=self.get_timestamp(item.job_details.timestamp_created),
                     date_started=self.get_timestamp(item.job_details.timestamp_started),
                     date_stopped=self.get_timestamp(item.job_details.timestamp_stopped),
-                    metadata=job_types.JobMetadata(job_types.JobId(item.job_id.value), item.metadata)
+                    metadata=item.job_details.metadata
                 )
 
                 result.append(info)
@@ -574,13 +576,13 @@ class JobsClient(BaseClient, JobsClientStub):
 
         return logs_list
 
-    def add_metadata(self, job_id: job_types.JobId, metadata: Mapping[str, str], timeout=None) -> job_types.JobMetadata:
+    def add_metadata(self, job_id: job_types.JobId, metadata: Mapping[str, str], timeout=None) -> Mapping[str, str]:
         """
         Requests the addition of metadata to a job.
 
         Args:
             job_id (job_types.JobId): Unique identifier of the job whose metadata is to be appended.
-            metadata(job_types.JobMetadata): Set of key/value pairs to be appended to the job metadata. If a metadata
+            metadata(Mapping[str, str]): Set of key/value pairs to be appended to the job metadata. If a metadata
                     key in the request already exists in the job record, or if duplicate keys are passed in the request,
                     the job will not be updated and and an error will be returned. Keys are compared using case
                     insensitive comparator functions. The maximum allowed size of a metadata key is 128 bytes, while
@@ -588,7 +590,7 @@ class JobsClient(BaseClient, JobsClientStub):
                     metadata of an individual job is 4 Megabytes.
 
         Returns:
-            A job_types.JobMetadata object containing the appended metadata
+            A Mapping[str, str] object containing the appended metadata
 
         """
         if (self._channel is None) or (self._stub is None):
@@ -610,14 +612,11 @@ class JobsClient(BaseClient, JobsClientStub):
 
         self.check_response_header(header=response.header)
 
-        result = job_types.JobMetadata(
-            job_id=job_types.JobId(response.job_id.value),
-            metadata=response.metadata
-        )
+        result = response.metadata
 
         return result
 
-    def remove_metadata(self, job_id: job_types.JobId, keys: List[str], timeout=None) -> job_types.JobMetadata:
+    def remove_metadata(self, job_id: job_types.JobId, keys: List[str], timeout=None) -> Mapping[str, str]:
         """
         Requests the removal of metadata from a job.
 
@@ -626,7 +625,7 @@ class JobsClient(BaseClient, JobsClientStub):
             keys: List of keys to be removed from the job metadata.
 
         Returns:
-            A job_types.JobMetadata object containing the updated set of metadata
+            A Mapping[str, str] object containing the updated set of metadata
         """
         if (self._channel is None) or (self._stub is None):
             raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
@@ -647,9 +646,6 @@ class JobsClient(BaseClient, JobsClientStub):
 
         self.check_response_header(header=response.header)
 
-        result = job_types.JobMetadata(
-            job_id=job_types.JobId(response.job_id.value),
-            metadata=response.metadata
-        )
+        result = response.metadata
 
         return result

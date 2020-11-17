@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
+from typing import List, Mapping
 from nvidia_clara.grpc import common_pb2
 
 
@@ -23,7 +23,7 @@ class PipelineDefinition:
         self._name = name
 
     @property
-    def content(self):
+    def content(self) -> str:
         """Text content of a pipeline definition.
 
         Content is typed as a "System.String" to avoid encoding related issues."""
@@ -37,7 +37,7 @@ class PipelineDefinition:
         self._content = content
 
     @property
-    def name(self):
+    def name(self) -> str:
         """The name of the pipeline definition.
 
         Not the name of the pipeline as defined by the definition.
@@ -92,13 +92,15 @@ class PipelineId:
 
 class PipelineDetails:
 
-    def __init__(self, pipeline_id: PipelineId = None, name: str = None, definition: List[PipelineDefinition] = None):
+    def __init__(self, pipeline_id: PipelineId = None, name: str = None, definition: List[PipelineDefinition] = None,
+                 metadata: Mapping[str, str] = None):
         self._pipeline_id = pipeline_id
         self._name = name
-        self._definiton = definition
+        self._definition = definition
+        self._metadata = metadata
 
     @property
-    def pipeline_id(self):
+    def pipeline_id(self) -> PipelineId:
         """Unique identifier of the pipeline."""
         return self._pipeline_id
 
@@ -108,7 +110,7 @@ class PipelineDetails:
         self._pipeline_id = pipeline_id
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         Human readable name of the pipeline.
 
@@ -126,13 +128,13 @@ class PipelineDetails:
         self._name = name
 
     @property
-    def definition(self):
+    def definition(self) -> List[PipelineDefinition]:
         """
         The definition of the pipeline.
 
         Clara pipeline definitions can be multi-file.
         """
-        return self._definiton
+        return self._definition
 
     @definition.setter
     def definition(self, definition: List[PipelineDefinition]):
@@ -141,17 +143,36 @@ class PipelineDetails:
 
         Clara pipeline definitions can be multi-file.
         """
-        self._definiton = definition
+        self._definition = definition
+
+    @property
+    def metadata(self) -> Mapping[str, str]:
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Mapping[str, str]):
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
+        self._metadata = metadata
 
 
 class PipelineInfo:
 
-    def __init__(self, pipeline_id: PipelineId = None, name: str = None):
+    def __init__(self, pipeline_id: PipelineId = None, name: str = None, metadata: Mapping[str, str] = None):
         self._pipeline_id = pipeline_id
         self._name = name
+        self._metadata = metadata
 
     @property
-    def pipeline_id(self):
+    def pipeline_id(self) -> PipelineId:
         return self._pipeline_id
 
     @pipeline_id.setter
@@ -159,9 +180,27 @@ class PipelineInfo:
         self._pipeline_id = pipeline_id
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @name.setter
     def name(self, name: str):
         self._name = name
+
+    @property
+    def metadata(self) -> Mapping[str, str]:
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Mapping[str, str]):
+        """
+        Human readable name of the pipeline.
+
+        Not guaranteed to be unique.
+        """
+        self._metadata = metadata

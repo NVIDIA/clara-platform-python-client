@@ -163,33 +163,6 @@ class JobId:
         return id
 
 
-class JobMetadata():
-
-    def __init__(self, job_id: JobId = None, metadata: Mapping[str, str] = None):
-        self._job_id = job_id
-        self._metadata = metadata
-
-    @property
-    def job_id(self) -> JobId:
-        """Unique identifier of the job."""
-        return self._job_id
-
-    @job_id.setter
-    def job_id(self, job_id: JobId):
-        """Unique identifier of the job."""
-        self._job_id = job_id
-
-    @property
-    def metadata(self) -> Mapping[str, str]:
-        """Metadata (set of all of key/value pairs) of the job."""
-        return self._metadata
-
-    @metadata.setter
-    def metadata(self, metadata: Mapping[str, str]):
-        """Metadata (set of all of key/value pairs) of the job."""
-        self._metadata = metadata
-
-
 class JobToken:
 
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
@@ -245,7 +218,7 @@ class JobInfo(JobToken):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None, metadata: JobMetadata = None):
+                 pipeline_id: pipeline_types.PipelineId = None, metadata: Mapping[str, str] = None):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
@@ -309,11 +282,11 @@ class JobInfo(JobToken):
         self._pipeline_id = pipeline_id
 
     @property
-    def metadata(self) -> JobMetadata:
+    def metadata(self) -> Mapping[str, str]:
         return self._metadata
 
     @metadata.setter
-    def metadata(self, metadata: JobMetadata):
+    def metadata(self, metadata: Mapping[str, str]):
         self._metadata = metadata
 
 
@@ -385,7 +358,7 @@ class JobDetails(JobInfo):
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
                  pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = None,
-                 messages: List[str] = None, metadata: JobMetadata = None):
+                 messages: List[str] = None, metadata: Mapping[str, str] = None):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
