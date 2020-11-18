@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from enum import Enum
-from typing import Mapping as HashMap, List
+from typing import Mapping as HashMap, List, Mapping
 from nvidia_clara.grpc import models_pb2, common_pb2
 
 
@@ -104,17 +104,19 @@ class ModelDetails:
 
     def __init__(self, other: models_pb2.ModelDetails = None, model_id: ModelId = None, name: str = None,
                  tags: HashMap[str, str] = None,
-                 model_type: ModelType = None):
+                 model_type: ModelType = None, metadata: Mapping[str, str] = None):
         if other is None:
             self._model_id = model_id
             self._name = name
             self._tags = tags
             self._model_type = model_type
+            self._metadata = metadata
         else:
             self._model_id = other.model_id
             self._name = other.name
             self._tags = other.tags
             self._model_type = other.type
+            self._metadata = other.metadata
 
     @property
     def model_id(self) -> ModelId:
@@ -155,6 +157,20 @@ class ModelDetails:
     def model_type(self, model_type: ModelType = None):
         """The type (inference toolset) of this inference model."""
         self._model_type = model_type
+
+    @property
+    def metadata(self) -> Mapping[str, str]:
+        """
+        Metadata (set of key/value pairs) associated with the model
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Mapping[str, str]):
+        """
+        Metadata (set of key/value pairs) associated with the model
+        """
+        self._metadata = metadata
 
 
 class CatalogDetails:

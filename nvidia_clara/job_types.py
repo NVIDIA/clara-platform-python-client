@@ -218,7 +218,7 @@ class JobInfo(JobToken):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None):
+                 pipeline_id: pipeline_types.PipelineId = None, metadata: Mapping[str, str] = None):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
@@ -231,6 +231,7 @@ class JobInfo(JobToken):
         self._name = name
         self._payload_id = payload_id
         self._pipeline_id = pipeline_id
+        self._metadata = metadata
 
     @property
     def date_created(self) -> datetime:
@@ -279,6 +280,20 @@ class JobInfo(JobToken):
     @pipeline_id.setter
     def pipeline_id(self, pipeline_id: pipeline_types.PipelineId):
         self._pipeline_id = pipeline_id
+
+    @property
+    def metadata(self) -> Mapping[str, str]:
+        """
+        Metadata (set of key/value pairs) associated with the job
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata: Mapping[str, str]):
+        """
+        Metadata (set of key/value pairs) associated with the job
+        """
+        self._metadata = metadata
 
 
 class JobFilter:
@@ -349,7 +364,7 @@ class JobDetails(JobInfo):
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
                  pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = None,
-                 messages: List[str] = None):
+                 messages: List[str] = None, metadata: Mapping[str, str] = None):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
@@ -360,7 +375,8 @@ class JobDetails(JobInfo):
             date_stopped=date_stopped,
             name=name,
             payload_id=payload_id,
-            pipeline_id=pipeline_id
+            pipeline_id=pipeline_id,
+            metadata=metadata
         )
         self._messages = messages
         self._operator_details = operator_details

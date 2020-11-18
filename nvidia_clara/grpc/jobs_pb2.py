@@ -43,7 +43,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='nvidia.clara.platform',
   syntax='proto3',
   serialized_options=_b('\n\031com.nvidia.clara.platformZ\004apis\252\002\032Nvidia.Clara.Platform.Grpc'),
-  serialized_pb=_b('\n nvidia/clara/platform/jobs.proto\x12\x15nvidia.clara.platform\x1a\"nvidia/clara/platform/common.proto\x1a!nvidia/clara/platform/clara.proto\"\x8c\x01\n\x11JobsCancelRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x0e\n\x06reason\x18\x03 \x01(\t\"\xe8\x01\n\x12JobsCancelResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x32\n\tjob_state\x18\x03 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x34\n\njob_status\x18\x04 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\"\x80\x02\n\x11JobsCreateRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x36\n\x0bpipeline_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x34\n\x08priority\x18\x04 \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12\x39\n\x0einput_payloads\x18\x05 \x03(\x0b\x32!.nvidia.clara.platform.Identifier\"\xb5\x01\n\x12JobsCreateResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x35\n\npayload_id\x18\x03 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\"\xae\x03\n\x0fJobsListRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12@\n\x06\x66ilter\x18\x02 \x01(\x0b\x32\x30.nvidia.clara.platform.JobsListRequest.JobFilter\x1a\xa2\x02\n\tJobFilter\x12:\n\x10\x63ompleted_before\x18\x01 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x37\n\rcreated_after\x18\x02 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x32\n\thas_state\x18\x03 \x03(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x34\n\nhas_status\x18\x04 \x03(\x0e\x32 .nvidia.clara.platform.JobStatus\x12\x36\n\x0bpipeline_id\x18\x05 \x03(\x0b\x32!.nvidia.clara.platform.Identifier\"\xe3\x05\n\x10JobsListResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12G\n\x0bjob_details\x18\x02 \x01(\x0b\x32\x32.nvidia.clara.platform.JobsListResponse.JobDetails\x1a\xce\x04\n\nJobDetails\x12\x31\n\x06job_id\x18\x01 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x35\n\npayload_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x36\n\x0bpipeline_id\x18\x03 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x10\n\x08job_name\x18\x04 \x01(\t\x12.\n\x05state\x18\x05 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x30\n\x06status\x18\x06 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\x12\x34\n\x08priority\x18\x07 \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12\x31\n\x07\x63reated\x18\r \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07started\x18\x0e \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07stopped\x18\x0f \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x1d\n\x11timestamp_created\x18\n \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_started\x18\x0b \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_stopped\x18\x0c \x01(\tB\x02\x18\x01\"\x95\x01\n\x13JobsReadLogsRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x15\n\roperator_name\x18\x03 \x01(\t\"\xa5\x01\n\x14JobsReadLogsResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x15\n\roperator_name\x18\x03 \x01(\t\x12\x0c\n\x04logs\x18\x04 \x03(\t\"\xed\x01\n\x10JobsStartRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x45\n\tVariables\x18\x03 \x03(\x0b\x32\x32.nvidia.clara.platform.JobsStartRequest.NamedValue\x1a)\n\nNamedValue\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xe2\x01\n\x11JobsStartResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x34\n\x08priority\x18\x04 \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12.\n\x05state\x18\x02 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x30\n\x06status\x18\x03 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\"|\n\x11JobsStatusRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\"\xeb\x07\n\x12JobsStatusResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x36\n\x0bpipeline_id\x18\x03 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x35\n\npayload_id\x18\x04 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12.\n\x05state\x18\x05 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x30\n\x06status\x18\x06 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x34\n\x08priority\x18\t \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12\x31\n\x07\x63reated\x18\r \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07started\x18\x0e \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07stopped\x18\x0f \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12V\n\x10operator_details\x18\x10 \x03(\x0b\x32<.nvidia.clara.platform.JobsStatusResponse.JobOperatorDetails\x12\x10\n\x08messages\x18\x08 \x03(\t\x12\x1d\n\x11timestamp_created\x18\n \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_started\x18\x0b \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_stopped\x18\x0c \x01(\tB\x02\x18\x01\x1a\xf5\x01\n\x12JobOperatorDetails\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x38\n\x06status\x18\x02 \x01(\x0e\x32(.nvidia.clara.platform.JobOperatorStatus\x12\x31\n\x07\x63reated\x18\x03 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07started\x18\x04 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07stopped\x18\x05 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp*\xba\x01\n\x11JobOperatorStatus\x12\x1f\n\x1bJOB_OPERATOR_STATUS_UNKNOWN\x10\x00\x12\x1f\n\x1bJOB_OPERATOR_STATUS_PENDING\x10\x01\x12\x1f\n\x1bJOB_OPERATOR_STATUS_RUNNING\x10\x02\x12!\n\x1dJOB_OPERATOR_STATUS_COMPLETED\x10\x03\x12\x1f\n\x1bJOB_OPERATOR_STATUS_FAULTED\x10\x04*\x8d\x01\n\x0bJobPriority\x12\x18\n\x14JOB_PRIORITY_UNKNOWN\x10\x00\x12\x16\n\x12JOB_PRIORITY_LOWER\x10\x01\x12\x17\n\x13JOB_PRIORITY_NORMAL\x10\x02\x12\x17\n\x13JOB_PRIORITY_HIGHER\x10\x03\x12\x1a\n\x16JOB_PRIORITY_IMMEDIATE\x10\x04*f\n\x08JobState\x12\x15\n\x11JOB_STATE_UNKNOWN\x10\x00\x12\x15\n\x11JOB_STATE_PENDING\x10\x01\x12\x15\n\x11JOB_STATE_RUNNING\x10\x02\x12\x15\n\x11JOB_STATE_STOPPED\x10\x03*l\n\tJobStatus\x12\x16\n\x12JOB_STATUS_UNKNOWN\x10\x00\x12\x16\n\x12JOB_STATUS_HEALTHY\x10\x01\x12\x16\n\x12JOB_STATUS_FAULTED\x10\x02\x12\x17\n\x13JOB_STATUS_CANCELED\x10\x03\x32\xc1\x04\n\x04Jobs\x12]\n\x06\x43\x61ncel\x12(.nvidia.clara.platform.JobsCancelRequest\x1a).nvidia.clara.platform.JobsCancelResponse\x12]\n\x06\x43reate\x12(.nvidia.clara.platform.JobsCreateRequest\x1a).nvidia.clara.platform.JobsCreateResponse\x12Y\n\x04List\x12&.nvidia.clara.platform.JobsListRequest\x1a\'.nvidia.clara.platform.JobsListResponse0\x01\x12\x65\n\x08ReadLogs\x12*.nvidia.clara.platform.JobsReadLogsRequest\x1a+.nvidia.clara.platform.JobsReadLogsResponse0\x01\x12Z\n\x05Start\x12\'.nvidia.clara.platform.JobsStartRequest\x1a(.nvidia.clara.platform.JobsStartResponse\x12]\n\x06Status\x12(.nvidia.clara.platform.JobsStatusRequest\x1a).nvidia.clara.platform.JobsStatusResponseB>\n\x19\x63om.nvidia.clara.platformZ\x04\x61pis\xaa\x02\x1aNvidia.Clara.Platform.GrpcP\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n nvidia/clara/platform/jobs.proto\x12\x15nvidia.clara.platform\x1a\"nvidia/clara/platform/common.proto\x1a!nvidia/clara/platform/clara.proto\"\x81\x02\n\x16JobsAddMetadataRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12M\n\x08metadata\x18\x03 \x03(\x0b\x32;.nvidia.clara.platform.JobsAddMetadataRequest.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x84\x02\n\x17JobsAddMetadataResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12N\n\x08metadata\x18\x03 \x03(\x0b\x32<.nvidia.clara.platform.JobsAddMetadataResponse.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x8c\x01\n\x11JobsCancelRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x0e\n\x06reason\x18\x03 \x01(\t\"\xe8\x01\n\x12JobsCancelResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x32\n\tjob_state\x18\x03 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x34\n\njob_status\x18\x04 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\"\xfb\x02\n\x11JobsCreateRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x36\n\x0bpipeline_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x34\n\x08priority\x18\x04 \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12\x39\n\x0einput_payloads\x18\x05 \x03(\x0b\x32!.nvidia.clara.platform.Identifier\x12H\n\x08metadata\x18\x06 \x03(\x0b\x32\x36.nvidia.clara.platform.JobsCreateRequest.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xb5\x01\n\x12JobsCreateResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x35\n\npayload_id\x18\x03 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\"\xae\x03\n\x0fJobsListRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12@\n\x06\x66ilter\x18\x02 \x01(\x0b\x32\x30.nvidia.clara.platform.JobsListRequest.JobFilter\x1a\xa2\x02\n\tJobFilter\x12:\n\x10\x63ompleted_before\x18\x01 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x37\n\rcreated_after\x18\x02 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x32\n\thas_state\x18\x03 \x03(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x34\n\nhas_status\x18\x04 \x03(\x0e\x32 .nvidia.clara.platform.JobStatus\x12\x36\n\x0bpipeline_id\x18\x05 \x03(\x0b\x32!.nvidia.clara.platform.Identifier\"\xe8\x06\n\x10JobsListResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12G\n\x0bjob_details\x18\x02 \x01(\x0b\x32\x32.nvidia.clara.platform.JobsListResponse.JobDetails\x1a\xd3\x05\n\nJobDetails\x12\x31\n\x06job_id\x18\x01 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x35\n\npayload_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x36\n\x0bpipeline_id\x18\x03 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x10\n\x08job_name\x18\x04 \x01(\t\x12.\n\x05state\x18\x05 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x30\n\x06status\x18\x06 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\x12\x34\n\x08priority\x18\x07 \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12\x31\n\x07\x63reated\x18\r \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07started\x18\x0e \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07stopped\x18\x0f \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12R\n\x08metadata\x18\x10 \x03(\x0b\x32@.nvidia.clara.platform.JobsListResponse.JobDetails.MetadataEntry\x12\x1d\n\x11timestamp_created\x18\n \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_started\x18\x0b \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_stopped\x18\x0c \x01(\tB\x02\x18\x01\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x95\x01\n\x13JobsReadLogsRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x15\n\roperator_name\x18\x03 \x01(\t\"\xa5\x01\n\x14JobsReadLogsResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x15\n\roperator_name\x18\x03 \x01(\t\x12\x0c\n\x04logs\x18\x04 \x03(\t\"\x92\x01\n\x19JobsRemoveMetadataRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x0c\n\x04keys\x18\x03 \x03(\t\"\x8a\x02\n\x1aJobsRemoveMetadataResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12Q\n\x08metadata\x18\x03 \x03(\x0b\x32?.nvidia.clara.platform.JobsRemoveMetadataResponse.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xed\x01\n\x10JobsStartRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x45\n\tVariables\x18\x03 \x03(\x0b\x32\x32.nvidia.clara.platform.JobsStartRequest.NamedValue\x1a)\n\nNamedValue\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xe2\x01\n\x11JobsStartResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x34\n\x08priority\x18\x04 \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12.\n\x05state\x18\x02 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x30\n\x06status\x18\x03 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\"|\n\x11JobsStatusRequest\x12\x34\n\x06header\x18\x01 \x01(\x0b\x32$.nvidia.clara.platform.RequestHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\"\xeb\n\n\x12JobsStatusResponse\x12\x35\n\x06header\x18\x01 \x01(\x0b\x32%.nvidia.clara.platform.ResponseHeader\x12\x31\n\x06job_id\x18\x02 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x36\n\x0bpipeline_id\x18\x03 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12\x35\n\npayload_id\x18\x04 \x01(\x0b\x32!.nvidia.clara.platform.Identifier\x12.\n\x05state\x18\x05 \x01(\x0e\x32\x1f.nvidia.clara.platform.JobState\x12\x30\n\x06status\x18\x06 \x01(\x0e\x32 .nvidia.clara.platform.JobStatus\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x34\n\x08priority\x18\t \x01(\x0e\x32\".nvidia.clara.platform.JobPriority\x12\x31\n\x07\x63reated\x18\r \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07started\x18\x0e \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07stopped\x18\x0f \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12V\n\x10operator_details\x18\x10 \x03(\x0b\x32<.nvidia.clara.platform.JobsStatusResponse.JobOperatorDetails\x12I\n\x08metadata\x18\x11 \x03(\x0b\x32\x37.nvidia.clara.platform.JobsStatusResponse.MetadataEntry\x12\x41\n\x03\x64\x61g\x18\x12 \x03(\x0b\x32\x34.nvidia.clara.platform.JobsStatusResponse.JobDagNode\x12\x10\n\x08messages\x18\x08 \x03(\t\x12\x1d\n\x11timestamp_created\x18\n \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_started\x18\x0b \x01(\tB\x02\x18\x01\x12\x1d\n\x11timestamp_stopped\x18\x0c \x01(\tB\x02\x18\x01\x1a\xf5\x01\n\x12JobOperatorDetails\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x38\n\x06status\x18\x02 \x01(\x0e\x32(.nvidia.clara.platform.JobOperatorStatus\x12\x31\n\x07\x63reated\x18\x03 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07started\x18\x04 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x12\x31\n\x07stopped\x18\x05 \x01(\x0b\x32 .nvidia.clara.platform.Timestamp\x1a\xbe\x01\n\nJobDagNode\x12\x0c\n\x04name\x18\x01 \x01(\t\x12P\n\x12input_dependencies\x18\x02 \x03(\x0b\x32\x34.nvidia.clara.platform.JobsStatusResponse.JobDagNode\x12P\n\x12order_dependencies\x18\x03 \x03(\x0b\x32\x34.nvidia.clara.platform.JobsStatusResponse.JobDagNode\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01*\xba\x01\n\x11JobOperatorStatus\x12\x1f\n\x1bJOB_OPERATOR_STATUS_UNKNOWN\x10\x00\x12\x1f\n\x1bJOB_OPERATOR_STATUS_PENDING\x10\x01\x12\x1f\n\x1bJOB_OPERATOR_STATUS_RUNNING\x10\x02\x12!\n\x1dJOB_OPERATOR_STATUS_COMPLETED\x10\x03\x12\x1f\n\x1bJOB_OPERATOR_STATUS_FAULTED\x10\x04*\x8d\x01\n\x0bJobPriority\x12\x18\n\x14JOB_PRIORITY_UNKNOWN\x10\x00\x12\x16\n\x12JOB_PRIORITY_LOWER\x10\x01\x12\x17\n\x13JOB_PRIORITY_NORMAL\x10\x02\x12\x17\n\x13JOB_PRIORITY_HIGHER\x10\x03\x12\x1a\n\x16JOB_PRIORITY_IMMEDIATE\x10\x04*f\n\x08JobState\x12\x15\n\x11JOB_STATE_UNKNOWN\x10\x00\x12\x15\n\x11JOB_STATE_PENDING\x10\x01\x12\x15\n\x11JOB_STATE_RUNNING\x10\x02\x12\x15\n\x11JOB_STATE_STOPPED\x10\x03*l\n\tJobStatus\x12\x16\n\x12JOB_STATUS_UNKNOWN\x10\x00\x12\x16\n\x12JOB_STATUS_HEALTHY\x10\x01\x12\x16\n\x12JOB_STATUS_FAULTED\x10\x02\x12\x17\n\x13JOB_STATUS_CANCELED\x10\x03\x32\xa6\x06\n\x04Jobs\x12l\n\x0b\x41\x64\x64Metadata\x12-.nvidia.clara.platform.JobsAddMetadataRequest\x1a..nvidia.clara.platform.JobsAddMetadataResponse\x12]\n\x06\x43\x61ncel\x12(.nvidia.clara.platform.JobsCancelRequest\x1a).nvidia.clara.platform.JobsCancelResponse\x12]\n\x06\x43reate\x12(.nvidia.clara.platform.JobsCreateRequest\x1a).nvidia.clara.platform.JobsCreateResponse\x12Y\n\x04List\x12&.nvidia.clara.platform.JobsListRequest\x1a\'.nvidia.clara.platform.JobsListResponse0\x01\x12\x65\n\x08ReadLogs\x12*.nvidia.clara.platform.JobsReadLogsRequest\x1a+.nvidia.clara.platform.JobsReadLogsResponse0\x01\x12u\n\x0eRemoveMetadata\x12\x30.nvidia.clara.platform.JobsRemoveMetadataRequest\x1a\x31.nvidia.clara.platform.JobsRemoveMetadataResponse\x12Z\n\x05Start\x12\'.nvidia.clara.platform.JobsStartRequest\x1a(.nvidia.clara.platform.JobsStartResponse\x12]\n\x06Status\x12(.nvidia.clara.platform.JobsStatusRequest\x1a).nvidia.clara.platform.JobsStatusResponseB>\n\x19\x63om.nvidia.clara.platformZ\x04\x61pis\xaa\x02\x1aNvidia.Clara.Platform.GrpcP\x00P\x01\x62\x06proto3')
   ,
   dependencies=[nvidia_dot_clara_dot_platform_dot_common__pb2.DESCRIPTOR,nvidia_dot_clara_dot_platform_dot_clara__pb2.DESCRIPTOR,],
   public_dependencies=[nvidia_dot_clara_dot_platform_dot_common__pb2.DESCRIPTOR,nvidia_dot_clara_dot_platform_dot_clara__pb2.DESCRIPTOR,])
@@ -77,8 +77,8 @@ _JOBOPERATORSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4048,
-  serialized_end=4234,
+  serialized_start=5629,
+  serialized_end=5815,
 )
 _sym_db.RegisterEnumDescriptor(_JOBOPERATORSTATUS)
 
@@ -112,8 +112,8 @@ _JOBPRIORITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4237,
-  serialized_end=4378,
+  serialized_start=5818,
+  serialized_end=5959,
 )
 _sym_db.RegisterEnumDescriptor(_JOBPRIORITY)
 
@@ -143,8 +143,8 @@ _JOBSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4380,
-  serialized_end=4482,
+  serialized_start=5961,
+  serialized_end=6063,
 )
 _sym_db.RegisterEnumDescriptor(_JOBSTATE)
 
@@ -174,8 +174,8 @@ _JOBSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4484,
-  serialized_end=4592,
+  serialized_start=6065,
+  serialized_end=6173,
 )
 _sym_db.RegisterEnumDescriptor(_JOBSTATUS)
 
@@ -199,6 +199,170 @@ JOB_STATUS_HEALTHY = 1
 JOB_STATUS_FAULTED = 2
 JOB_STATUS_CANCELED = 3
 
+
+
+_JOBSADDMETADATAREQUEST_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='nvidia.clara.platform.JobsAddMetadataRequest.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='nvidia.clara.platform.JobsAddMetadataRequest.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='nvidia.clara.platform.JobsAddMetadataRequest.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=388,
+)
+
+_JOBSADDMETADATAREQUEST = _descriptor.Descriptor(
+  name='JobsAddMetadataRequest',
+  full_name='nvidia.clara.platform.JobsAddMetadataRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='header', full_name='nvidia.clara.platform.JobsAddMetadataRequest.header', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='job_id', full_name='nvidia.clara.platform.JobsAddMetadataRequest.job_id', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='nvidia.clara.platform.JobsAddMetadataRequest.metadata', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_JOBSADDMETADATAREQUEST_METADATAENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=131,
+  serialized_end=388,
+)
+
+
+_JOBSADDMETADATARESPONSE_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='nvidia.clara.platform.JobsAddMetadataResponse.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='nvidia.clara.platform.JobsAddMetadataResponse.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='nvidia.clara.platform.JobsAddMetadataResponse.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=388,
+)
+
+_JOBSADDMETADATARESPONSE = _descriptor.Descriptor(
+  name='JobsAddMetadataResponse',
+  full_name='nvidia.clara.platform.JobsAddMetadataResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='header', full_name='nvidia.clara.platform.JobsAddMetadataResponse.header', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='job_id', full_name='nvidia.clara.platform.JobsAddMetadataResponse.job_id', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='nvidia.clara.platform.JobsAddMetadataResponse.metadata', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_JOBSADDMETADATARESPONSE_METADATAENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=391,
+  serialized_end=651,
+)
 
 
 _JOBSCANCELREQUEST = _descriptor.Descriptor(
@@ -241,8 +405,8 @@ _JOBSCANCELREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=131,
-  serialized_end=271,
+  serialized_start=654,
+  serialized_end=794,
 )
 
 
@@ -293,10 +457,47 @@ _JOBSCANCELRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=274,
-  serialized_end=506,
+  serialized_start=797,
+  serialized_end=1029,
 )
 
+
+_JOBSCREATEREQUEST_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='nvidia.clara.platform.JobsCreateRequest.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='nvidia.clara.platform.JobsCreateRequest.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='nvidia.clara.platform.JobsCreateRequest.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=388,
+)
 
 _JOBSCREATEREQUEST = _descriptor.Descriptor(
   name='JobsCreateRequest',
@@ -340,10 +541,17 @@ _JOBSCREATEREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='nvidia.clara.platform.JobsCreateRequest.metadata', index=5,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_JOBSCREATEREQUEST_METADATAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -352,8 +560,8 @@ _JOBSCREATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=509,
-  serialized_end=765,
+  serialized_start=1032,
+  serialized_end=1411,
 )
 
 
@@ -397,8 +605,8 @@ _JOBSCREATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=768,
-  serialized_end=949,
+  serialized_start=1414,
+  serialized_end=1595,
 )
 
 
@@ -456,8 +664,8 @@ _JOBSLISTREQUEST_JOBFILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1092,
-  serialized_end=1382,
+  serialized_start=1738,
+  serialized_end=2028,
 )
 
 _JOBSLISTREQUEST = _descriptor.Descriptor(
@@ -493,10 +701,47 @@ _JOBSLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=952,
-  serialized_end=1382,
+  serialized_start=1598,
+  serialized_end=2028,
 )
 
+
+_JOBSLISTRESPONSE_JOBDETAILS_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='nvidia.clara.platform.JobsListResponse.JobDetails.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=388,
+)
 
 _JOBSLISTRESPONSE_JOBDETAILS = _descriptor.Descriptor(
   name='JobDetails',
@@ -576,21 +821,28 @@ _JOBSLISTRESPONSE_JOBDETAILS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp_created', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.timestamp_created', index=10,
+      name='metadata', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.metadata', index=10,
+      number=16, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timestamp_created', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.timestamp_created', index=11,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=_b('\030\001'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp_started', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.timestamp_started', index=11,
+      name='timestamp_started', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.timestamp_started', index=12,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=_b('\030\001'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp_stopped', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.timestamp_stopped', index=12,
+      name='timestamp_stopped', full_name='nvidia.clara.platform.JobsListResponse.JobDetails.timestamp_stopped', index=13,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -599,7 +851,7 @@ _JOBSLISTRESPONSE_JOBDETAILS = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_JOBSLISTRESPONSE_JOBDETAILS_METADATAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -608,8 +860,8 @@ _JOBSLISTRESPONSE_JOBDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1534,
-  serialized_end=2124,
+  serialized_start=2180,
+  serialized_end=2903,
 )
 
 _JOBSLISTRESPONSE = _descriptor.Descriptor(
@@ -645,8 +897,8 @@ _JOBSLISTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1385,
-  serialized_end=2124,
+  serialized_start=2031,
+  serialized_end=2903,
 )
 
 
@@ -690,8 +942,8 @@ _JOBSREADLOGSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2127,
-  serialized_end=2276,
+  serialized_start=2906,
+  serialized_end=3055,
 )
 
 
@@ -742,8 +994,135 @@ _JOBSREADLOGSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2279,
-  serialized_end=2444,
+  serialized_start=3058,
+  serialized_end=3223,
+)
+
+
+_JOBSREMOVEMETADATAREQUEST = _descriptor.Descriptor(
+  name='JobsRemoveMetadataRequest',
+  full_name='nvidia.clara.platform.JobsRemoveMetadataRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='header', full_name='nvidia.clara.platform.JobsRemoveMetadataRequest.header', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='job_id', full_name='nvidia.clara.platform.JobsRemoveMetadataRequest.job_id', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keys', full_name='nvidia.clara.platform.JobsRemoveMetadataRequest.keys', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3226,
+  serialized_end=3372,
+)
+
+
+_JOBSREMOVEMETADATARESPONSE_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='nvidia.clara.platform.JobsRemoveMetadataResponse.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='nvidia.clara.platform.JobsRemoveMetadataResponse.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='nvidia.clara.platform.JobsRemoveMetadataResponse.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=388,
+)
+
+_JOBSREMOVEMETADATARESPONSE = _descriptor.Descriptor(
+  name='JobsRemoveMetadataResponse',
+  full_name='nvidia.clara.platform.JobsRemoveMetadataResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='header', full_name='nvidia.clara.platform.JobsRemoveMetadataResponse.header', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='job_id', full_name='nvidia.clara.platform.JobsRemoveMetadataResponse.job_id', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='nvidia.clara.platform.JobsRemoveMetadataResponse.metadata', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_JOBSREMOVEMETADATARESPONSE_METADATAENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3375,
+  serialized_end=3641,
 )
 
 
@@ -780,8 +1159,8 @@ _JOBSSTARTREQUEST_NAMEDVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2643,
-  serialized_end=2684,
+  serialized_start=3840,
+  serialized_end=3881,
 )
 
 _JOBSSTARTREQUEST = _descriptor.Descriptor(
@@ -824,8 +1203,8 @@ _JOBSSTARTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2447,
-  serialized_end=2684,
+  serialized_start=3644,
+  serialized_end=3881,
 )
 
 
@@ -876,8 +1255,8 @@ _JOBSSTARTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2687,
-  serialized_end=2913,
+  serialized_start=3884,
+  serialized_end=4110,
 )
 
 
@@ -914,8 +1293,8 @@ _JOBSSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2915,
-  serialized_end=3039,
+  serialized_start=4112,
+  serialized_end=4236,
 )
 
 
@@ -973,8 +1352,89 @@ _JOBSSTATUSRESPONSE_JOBOPERATORDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3800,
-  serialized_end=4045,
+  serialized_start=5139,
+  serialized_end=5384,
+)
+
+_JOBSSTATUSRESPONSE_JOBDAGNODE = _descriptor.Descriptor(
+  name='JobDagNode',
+  full_name='nvidia.clara.platform.JobsStatusResponse.JobDagNode',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='nvidia.clara.platform.JobsStatusResponse.JobDagNode.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='input_dependencies', full_name='nvidia.clara.platform.JobsStatusResponse.JobDagNode.input_dependencies', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order_dependencies', full_name='nvidia.clara.platform.JobsStatusResponse.JobDagNode.order_dependencies', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5387,
+  serialized_end=5577,
+)
+
+_JOBSSTATUSRESPONSE_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='nvidia.clara.platform.JobsStatusResponse.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='nvidia.clara.platform.JobsStatusResponse.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='nvidia.clara.platform.JobsStatusResponse.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=388,
 )
 
 _JOBSSTATUSRESPONSE = _descriptor.Descriptor(
@@ -1069,28 +1529,42 @@ _JOBSSTATUSRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='messages', full_name='nvidia.clara.platform.JobsStatusResponse.messages', index=12,
+      name='metadata', full_name='nvidia.clara.platform.JobsStatusResponse.metadata', index=12,
+      number=17, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='dag', full_name='nvidia.clara.platform.JobsStatusResponse.dag', index=13,
+      number=18, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='messages', full_name='nvidia.clara.platform.JobsStatusResponse.messages', index=14,
       number=8, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp_created', full_name='nvidia.clara.platform.JobsStatusResponse.timestamp_created', index=13,
+      name='timestamp_created', full_name='nvidia.clara.platform.JobsStatusResponse.timestamp_created', index=15,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=_b('\030\001'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp_started', full_name='nvidia.clara.platform.JobsStatusResponse.timestamp_started', index=14,
+      name='timestamp_started', full_name='nvidia.clara.platform.JobsStatusResponse.timestamp_started', index=16,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=_b('\030\001'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timestamp_stopped', full_name='nvidia.clara.platform.JobsStatusResponse.timestamp_stopped', index=15,
+      name='timestamp_stopped', full_name='nvidia.clara.platform.JobsStatusResponse.timestamp_stopped', index=17,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1099,7 +1573,7 @@ _JOBSSTATUSRESPONSE = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_JOBSSTATUSRESPONSE_JOBOPERATORDETAILS, ],
+  nested_types=[_JOBSSTATUSRESPONSE_JOBOPERATORDETAILS, _JOBSSTATUSRESPONSE_JOBDAGNODE, _JOBSSTATUSRESPONSE_METADATAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -1108,20 +1582,30 @@ _JOBSSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3042,
-  serialized_end=4045,
+  serialized_start=4239,
+  serialized_end=5626,
 )
 
+_JOBSADDMETADATAREQUEST_METADATAENTRY.containing_type = _JOBSADDMETADATAREQUEST
+_JOBSADDMETADATAREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._REQUESTHEADER
+_JOBSADDMETADATAREQUEST.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
+_JOBSADDMETADATAREQUEST.fields_by_name['metadata'].message_type = _JOBSADDMETADATAREQUEST_METADATAENTRY
+_JOBSADDMETADATARESPONSE_METADATAENTRY.containing_type = _JOBSADDMETADATARESPONSE
+_JOBSADDMETADATARESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
+_JOBSADDMETADATARESPONSE.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
+_JOBSADDMETADATARESPONSE.fields_by_name['metadata'].message_type = _JOBSADDMETADATARESPONSE_METADATAENTRY
 _JOBSCANCELREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._REQUESTHEADER
 _JOBSCANCELREQUEST.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSCANCELRESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
 _JOBSCANCELRESPONSE.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSCANCELRESPONSE.fields_by_name['job_state'].enum_type = _JOBSTATE
 _JOBSCANCELRESPONSE.fields_by_name['job_status'].enum_type = _JOBSTATUS
+_JOBSCREATEREQUEST_METADATAENTRY.containing_type = _JOBSCREATEREQUEST
 _JOBSCREATEREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._REQUESTHEADER
 _JOBSCREATEREQUEST.fields_by_name['pipeline_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSCREATEREQUEST.fields_by_name['priority'].enum_type = _JOBPRIORITY
 _JOBSCREATEREQUEST.fields_by_name['input_payloads'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
+_JOBSCREATEREQUEST.fields_by_name['metadata'].message_type = _JOBSCREATEREQUEST_METADATAENTRY
 _JOBSCREATERESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
 _JOBSCREATERESPONSE.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSCREATERESPONSE.fields_by_name['payload_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
@@ -1133,6 +1617,7 @@ _JOBSLISTREQUEST_JOBFILTER.fields_by_name['pipeline_id'].message_type = nvidia_d
 _JOBSLISTREQUEST_JOBFILTER.containing_type = _JOBSLISTREQUEST
 _JOBSLISTREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._REQUESTHEADER
 _JOBSLISTREQUEST.fields_by_name['filter'].message_type = _JOBSLISTREQUEST_JOBFILTER
+_JOBSLISTRESPONSE_JOBDETAILS_METADATAENTRY.containing_type = _JOBSLISTRESPONSE_JOBDETAILS
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['payload_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['pipeline_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
@@ -1142,6 +1627,7 @@ _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['priority'].enum_type = _JOBPRIORITY
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['created'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['started'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['stopped'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
+_JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['metadata'].message_type = _JOBSLISTRESPONSE_JOBDETAILS_METADATAENTRY
 _JOBSLISTRESPONSE_JOBDETAILS.containing_type = _JOBSLISTRESPONSE
 _JOBSLISTRESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
 _JOBSLISTRESPONSE.fields_by_name['job_details'].message_type = _JOBSLISTRESPONSE_JOBDETAILS
@@ -1149,6 +1635,12 @@ _JOBSREADLOGSREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_do
 _JOBSREADLOGSREQUEST.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSREADLOGSRESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
 _JOBSREADLOGSRESPONSE.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
+_JOBSREMOVEMETADATAREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._REQUESTHEADER
+_JOBSREMOVEMETADATAREQUEST.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
+_JOBSREMOVEMETADATARESPONSE_METADATAENTRY.containing_type = _JOBSREMOVEMETADATARESPONSE
+_JOBSREMOVEMETADATARESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
+_JOBSREMOVEMETADATARESPONSE.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
+_JOBSREMOVEMETADATARESPONSE.fields_by_name['metadata'].message_type = _JOBSREMOVEMETADATARESPONSE_METADATAENTRY
 _JOBSSTARTREQUEST_NAMEDVALUE.containing_type = _JOBSSTARTREQUEST
 _JOBSSTARTREQUEST.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._REQUESTHEADER
 _JOBSSTARTREQUEST.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
@@ -1164,6 +1656,10 @@ _JOBSSTATUSRESPONSE_JOBOPERATORDETAILS.fields_by_name['created'].message_type = 
 _JOBSSTATUSRESPONSE_JOBOPERATORDETAILS.fields_by_name['started'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
 _JOBSSTATUSRESPONSE_JOBOPERATORDETAILS.fields_by_name['stopped'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
 _JOBSSTATUSRESPONSE_JOBOPERATORDETAILS.containing_type = _JOBSSTATUSRESPONSE
+_JOBSSTATUSRESPONSE_JOBDAGNODE.fields_by_name['input_dependencies'].message_type = _JOBSSTATUSRESPONSE_JOBDAGNODE
+_JOBSSTATUSRESPONSE_JOBDAGNODE.fields_by_name['order_dependencies'].message_type = _JOBSSTATUSRESPONSE_JOBDAGNODE
+_JOBSSTATUSRESPONSE_JOBDAGNODE.containing_type = _JOBSSTATUSRESPONSE
+_JOBSSTATUSRESPONSE_METADATAENTRY.containing_type = _JOBSSTATUSRESPONSE
 _JOBSSTATUSRESPONSE.fields_by_name['header'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._RESPONSEHEADER
 _JOBSSTATUSRESPONSE.fields_by_name['job_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
 _JOBSSTATUSRESPONSE.fields_by_name['pipeline_id'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._IDENTIFIER
@@ -1175,6 +1671,10 @@ _JOBSSTATUSRESPONSE.fields_by_name['created'].message_type = nvidia_dot_clara_do
 _JOBSSTATUSRESPONSE.fields_by_name['started'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
 _JOBSSTATUSRESPONSE.fields_by_name['stopped'].message_type = nvidia_dot_clara_dot_platform_dot_common__pb2._TIMESTAMP
 _JOBSSTATUSRESPONSE.fields_by_name['operator_details'].message_type = _JOBSSTATUSRESPONSE_JOBOPERATORDETAILS
+_JOBSSTATUSRESPONSE.fields_by_name['metadata'].message_type = _JOBSSTATUSRESPONSE_METADATAENTRY
+_JOBSSTATUSRESPONSE.fields_by_name['dag'].message_type = _JOBSSTATUSRESPONSE_JOBDAGNODE
+DESCRIPTOR.message_types_by_name['JobsAddMetadataRequest'] = _JOBSADDMETADATAREQUEST
+DESCRIPTOR.message_types_by_name['JobsAddMetadataResponse'] = _JOBSADDMETADATARESPONSE
 DESCRIPTOR.message_types_by_name['JobsCancelRequest'] = _JOBSCANCELREQUEST
 DESCRIPTOR.message_types_by_name['JobsCancelResponse'] = _JOBSCANCELRESPONSE
 DESCRIPTOR.message_types_by_name['JobsCreateRequest'] = _JOBSCREATEREQUEST
@@ -1183,6 +1683,8 @@ DESCRIPTOR.message_types_by_name['JobsListRequest'] = _JOBSLISTREQUEST
 DESCRIPTOR.message_types_by_name['JobsListResponse'] = _JOBSLISTRESPONSE
 DESCRIPTOR.message_types_by_name['JobsReadLogsRequest'] = _JOBSREADLOGSREQUEST
 DESCRIPTOR.message_types_by_name['JobsReadLogsResponse'] = _JOBSREADLOGSRESPONSE
+DESCRIPTOR.message_types_by_name['JobsRemoveMetadataRequest'] = _JOBSREMOVEMETADATAREQUEST
+DESCRIPTOR.message_types_by_name['JobsRemoveMetadataResponse'] = _JOBSREMOVEMETADATARESPONSE
 DESCRIPTOR.message_types_by_name['JobsStartRequest'] = _JOBSSTARTREQUEST
 DESCRIPTOR.message_types_by_name['JobsStartResponse'] = _JOBSSTARTRESPONSE
 DESCRIPTOR.message_types_by_name['JobsStatusRequest'] = _JOBSSTATUSREQUEST
@@ -1192,6 +1694,36 @@ DESCRIPTOR.enum_types_by_name['JobPriority'] = _JOBPRIORITY
 DESCRIPTOR.enum_types_by_name['JobState'] = _JOBSTATE
 DESCRIPTOR.enum_types_by_name['JobStatus'] = _JOBSTATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+JobsAddMetadataRequest = _reflection.GeneratedProtocolMessageType('JobsAddMetadataRequest', (_message.Message,), dict(
+
+  MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
+    DESCRIPTOR = _JOBSADDMETADATAREQUEST_METADATAENTRY,
+    __module__ = 'nvidia.clara.platform.jobs_pb2'
+    # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsAddMetadataRequest.MetadataEntry)
+    ))
+  ,
+  DESCRIPTOR = _JOBSADDMETADATAREQUEST,
+  __module__ = 'nvidia.clara.platform.jobs_pb2'
+  # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsAddMetadataRequest)
+  ))
+_sym_db.RegisterMessage(JobsAddMetadataRequest)
+_sym_db.RegisterMessage(JobsAddMetadataRequest.MetadataEntry)
+
+JobsAddMetadataResponse = _reflection.GeneratedProtocolMessageType('JobsAddMetadataResponse', (_message.Message,), dict(
+
+  MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
+    DESCRIPTOR = _JOBSADDMETADATARESPONSE_METADATAENTRY,
+    __module__ = 'nvidia.clara.platform.jobs_pb2'
+    # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsAddMetadataResponse.MetadataEntry)
+    ))
+  ,
+  DESCRIPTOR = _JOBSADDMETADATARESPONSE,
+  __module__ = 'nvidia.clara.platform.jobs_pb2'
+  # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsAddMetadataResponse)
+  ))
+_sym_db.RegisterMessage(JobsAddMetadataResponse)
+_sym_db.RegisterMessage(JobsAddMetadataResponse.MetadataEntry)
 
 JobsCancelRequest = _reflection.GeneratedProtocolMessageType('JobsCancelRequest', (_message.Message,), dict(
   DESCRIPTOR = _JOBSCANCELREQUEST,
@@ -1208,11 +1740,19 @@ JobsCancelResponse = _reflection.GeneratedProtocolMessageType('JobsCancelRespons
 _sym_db.RegisterMessage(JobsCancelResponse)
 
 JobsCreateRequest = _reflection.GeneratedProtocolMessageType('JobsCreateRequest', (_message.Message,), dict(
+
+  MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
+    DESCRIPTOR = _JOBSCREATEREQUEST_METADATAENTRY,
+    __module__ = 'nvidia.clara.platform.jobs_pb2'
+    # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsCreateRequest.MetadataEntry)
+    ))
+  ,
   DESCRIPTOR = _JOBSCREATEREQUEST,
   __module__ = 'nvidia.clara.platform.jobs_pb2'
   # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsCreateRequest)
   ))
 _sym_db.RegisterMessage(JobsCreateRequest)
+_sym_db.RegisterMessage(JobsCreateRequest.MetadataEntry)
 
 JobsCreateResponse = _reflection.GeneratedProtocolMessageType('JobsCreateResponse', (_message.Message,), dict(
   DESCRIPTOR = _JOBSCREATERESPONSE,
@@ -1239,6 +1779,13 @@ _sym_db.RegisterMessage(JobsListRequest.JobFilter)
 JobsListResponse = _reflection.GeneratedProtocolMessageType('JobsListResponse', (_message.Message,), dict(
 
   JobDetails = _reflection.GeneratedProtocolMessageType('JobDetails', (_message.Message,), dict(
+
+    MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
+      DESCRIPTOR = _JOBSLISTRESPONSE_JOBDETAILS_METADATAENTRY,
+      __module__ = 'nvidia.clara.platform.jobs_pb2'
+      # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsListResponse.JobDetails.MetadataEntry)
+      ))
+    ,
     DESCRIPTOR = _JOBSLISTRESPONSE_JOBDETAILS,
     __module__ = 'nvidia.clara.platform.jobs_pb2'
     # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsListResponse.JobDetails)
@@ -1250,6 +1797,7 @@ JobsListResponse = _reflection.GeneratedProtocolMessageType('JobsListResponse', 
   ))
 _sym_db.RegisterMessage(JobsListResponse)
 _sym_db.RegisterMessage(JobsListResponse.JobDetails)
+_sym_db.RegisterMessage(JobsListResponse.JobDetails.MetadataEntry)
 
 JobsReadLogsRequest = _reflection.GeneratedProtocolMessageType('JobsReadLogsRequest', (_message.Message,), dict(
   DESCRIPTOR = _JOBSREADLOGSREQUEST,
@@ -1264,6 +1812,28 @@ JobsReadLogsResponse = _reflection.GeneratedProtocolMessageType('JobsReadLogsRes
   # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsReadLogsResponse)
   ))
 _sym_db.RegisterMessage(JobsReadLogsResponse)
+
+JobsRemoveMetadataRequest = _reflection.GeneratedProtocolMessageType('JobsRemoveMetadataRequest', (_message.Message,), dict(
+  DESCRIPTOR = _JOBSREMOVEMETADATAREQUEST,
+  __module__ = 'nvidia.clara.platform.jobs_pb2'
+  # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsRemoveMetadataRequest)
+  ))
+_sym_db.RegisterMessage(JobsRemoveMetadataRequest)
+
+JobsRemoveMetadataResponse = _reflection.GeneratedProtocolMessageType('JobsRemoveMetadataResponse', (_message.Message,), dict(
+
+  MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
+    DESCRIPTOR = _JOBSREMOVEMETADATARESPONSE_METADATAENTRY,
+    __module__ = 'nvidia.clara.platform.jobs_pb2'
+    # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsRemoveMetadataResponse.MetadataEntry)
+    ))
+  ,
+  DESCRIPTOR = _JOBSREMOVEMETADATARESPONSE,
+  __module__ = 'nvidia.clara.platform.jobs_pb2'
+  # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsRemoveMetadataResponse)
+  ))
+_sym_db.RegisterMessage(JobsRemoveMetadataResponse)
+_sym_db.RegisterMessage(JobsRemoveMetadataResponse.MetadataEntry)
 
 JobsStartRequest = _reflection.GeneratedProtocolMessageType('JobsStartRequest', (_message.Message,), dict(
 
@@ -1302,18 +1872,40 @@ JobsStatusResponse = _reflection.GeneratedProtocolMessageType('JobsStatusRespons
     # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsStatusResponse.JobOperatorDetails)
     ))
   ,
+
+  JobDagNode = _reflection.GeneratedProtocolMessageType('JobDagNode', (_message.Message,), dict(
+    DESCRIPTOR = _JOBSSTATUSRESPONSE_JOBDAGNODE,
+    __module__ = 'nvidia.clara.platform.jobs_pb2'
+    # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsStatusResponse.JobDagNode)
+    ))
+  ,
+
+  MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
+    DESCRIPTOR = _JOBSSTATUSRESPONSE_METADATAENTRY,
+    __module__ = 'nvidia.clara.platform.jobs_pb2'
+    # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsStatusResponse.MetadataEntry)
+    ))
+  ,
   DESCRIPTOR = _JOBSSTATUSRESPONSE,
   __module__ = 'nvidia.clara.platform.jobs_pb2'
   # @@protoc_insertion_point(class_scope:nvidia.clara.platform.JobsStatusResponse)
   ))
 _sym_db.RegisterMessage(JobsStatusResponse)
 _sym_db.RegisterMessage(JobsStatusResponse.JobOperatorDetails)
+_sym_db.RegisterMessage(JobsStatusResponse.JobDagNode)
+_sym_db.RegisterMessage(JobsStatusResponse.MetadataEntry)
 
 
 DESCRIPTOR._options = None
+_JOBSADDMETADATAREQUEST_METADATAENTRY._options = None
+_JOBSADDMETADATARESPONSE_METADATAENTRY._options = None
+_JOBSCREATEREQUEST_METADATAENTRY._options = None
+_JOBSLISTRESPONSE_JOBDETAILS_METADATAENTRY._options = None
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['timestamp_created']._options = None
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['timestamp_started']._options = None
 _JOBSLISTRESPONSE_JOBDETAILS.fields_by_name['timestamp_stopped']._options = None
+_JOBSREMOVEMETADATARESPONSE_METADATAENTRY._options = None
+_JOBSSTATUSRESPONSE_METADATAENTRY._options = None
 _JOBSSTATUSRESPONSE.fields_by_name['timestamp_created']._options = None
 _JOBSSTATUSRESPONSE.fields_by_name['timestamp_started']._options = None
 _JOBSSTATUSRESPONSE.fields_by_name['timestamp_stopped']._options = None
@@ -1324,13 +1916,22 @@ _JOBS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=4595,
-  serialized_end=5172,
+  serialized_start=6176,
+  serialized_end=6982,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='AddMetadata',
+    full_name='nvidia.clara.platform.Jobs.AddMetadata',
+    index=0,
+    containing_service=None,
+    input_type=_JOBSADDMETADATAREQUEST,
+    output_type=_JOBSADDMETADATARESPONSE,
+    serialized_options=None,
+  ),
   _descriptor.MethodDescriptor(
     name='Cancel',
     full_name='nvidia.clara.platform.Jobs.Cancel',
-    index=0,
+    index=1,
     containing_service=None,
     input_type=_JOBSCANCELREQUEST,
     output_type=_JOBSCANCELRESPONSE,
@@ -1339,7 +1940,7 @@ _JOBS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Create',
     full_name='nvidia.clara.platform.Jobs.Create',
-    index=1,
+    index=2,
     containing_service=None,
     input_type=_JOBSCREATEREQUEST,
     output_type=_JOBSCREATERESPONSE,
@@ -1348,7 +1949,7 @@ _JOBS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='List',
     full_name='nvidia.clara.platform.Jobs.List',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=_JOBSLISTREQUEST,
     output_type=_JOBSLISTRESPONSE,
@@ -1357,16 +1958,25 @@ _JOBS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ReadLogs',
     full_name='nvidia.clara.platform.Jobs.ReadLogs',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_JOBSREADLOGSREQUEST,
     output_type=_JOBSREADLOGSRESPONSE,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='RemoveMetadata',
+    full_name='nvidia.clara.platform.Jobs.RemoveMetadata',
+    index=5,
+    containing_service=None,
+    input_type=_JOBSREMOVEMETADATAREQUEST,
+    output_type=_JOBSREMOVEMETADATARESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='Start',
     full_name='nvidia.clara.platform.Jobs.Start',
-    index=4,
+    index=6,
     containing_service=None,
     input_type=_JOBSSTARTREQUEST,
     output_type=_JOBSSTARTRESPONSE,
@@ -1375,7 +1985,7 @@ _JOBS = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Status',
     full_name='nvidia.clara.platform.Jobs.Status',
-    index=5,
+    index=7,
     containing_service=None,
     input_type=_JOBSSTATUSREQUEST,
     output_type=_JOBSSTATUSRESPONSE,
