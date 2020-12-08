@@ -39,7 +39,7 @@ $ python3 -m pip install claraclient
 : Learn to create, upload, download, and manage Clara payloads
 
 ### Full  Example(s) Running Pipeline
-* [Spleen Segmentation Pipeline](https://github.com/NVIDIA/clara-platform-python-client/wiki/Spleen-Segmentation-Example---Creating-Pipeline-Job-and-Uploading-Downloading-Payload)
+* [Spleen Segmentation Pipeline](https://github.com/NVIDIA/clara-platform-python-client/wiki/Spleen-Segmentation-Example)
 
 
 ## Running Pytests
