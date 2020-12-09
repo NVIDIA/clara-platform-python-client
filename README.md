@@ -25,7 +25,14 @@ An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. 
 ## Getting Started
 
 ### Package Installation
-Available From [Pypi](https://pypi.org/project/claraclient/)
+#### Installing from [source repository](https://github.com/NVIDIA/clara-platform-python-client)
+```
+$ git clone --recursive git@github.com:kubernetes-client/python.git
+$ cd ./clara-platform-python-client
+$ python3 -m pip install .
+```
+
+#### Installing directly from [Pypi](https://pypi.org/project/claraclient/)
 ```
 $ python3 -m pip install claraclient
 ```
@@ -39,10 +46,11 @@ $ python3 -m pip install claraclient
 : Learn to create, upload, download, and manage Clara payloads
 
 ### Full  Example(s) Running Pipeline
-* [Spleen Segmentation Pipeline](https://github.com/NVIDIA/clara-platform-python-client/wiki/Spleen-Segmentation-Example---Creating-Pipeline-Job-and-Uploading-Downloading-Payload)
+* [Spleen Segmentation Pipeline](https://github.com/NVIDIA/clara-platform-python-client/wiki/Spleen-Segmentation-Example)
 
 
 ## Running Pytests
+*Only for developing with source repository*
 ```
 $ pip3 install grpcio-testing
 $ pip3 install pytest
