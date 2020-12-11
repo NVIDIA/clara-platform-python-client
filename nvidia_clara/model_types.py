@@ -103,8 +103,8 @@ class ModelId:
 class ModelDetails:
 
     def __init__(self, other: models_pb2.ModelDetails = None, model_id: ModelId = None, name: str = None,
-                 tags: HashMap[str, str] = None,
-                 model_type: ModelType = None, metadata: Mapping[str, str] = None):
+                 tags: Mapping[str, str] = dict(),
+                 model_type: ModelType = None, metadata: Mapping[str, str] = dict()):
         if other is None:
             self._model_id = model_id
             self._name = name
@@ -139,12 +139,12 @@ class ModelDetails:
         self._name = name
 
     @property
-    def tags(self) -> HashMap[str, str]:
+    def tags(self) -> Mapping[str, str]:
         """The set of tags / meta-data associated with this infrence model."""
         return self._tags
 
     @tags.setter
-    def tags(self, tags: HashMap[str, str] = None):
+    def tags(self, tags: Mapping[str, str] = None):
         """The set of tags / meta-data associated with this infrence model."""
         self._tags = tags
 
@@ -176,7 +176,7 @@ class ModelDetails:
 class CatalogDetails:
 
     def __init__(self, other: models_pb2.ModelCatalogDetails = None, catalog_id: CatalogId = None,
-                 models: List[ModelDetails] = None):
+                 models: List[ModelDetails] = []):
         if other is None:
             if catalog_id is None:
                 raise Exception("Catalog identifier can not be None and must be initializes")
@@ -257,7 +257,7 @@ class InstanceId:
 
 class InstanceDetails:
     def __init__(self, other: models_pb2.ModelCatalogDetails = None, instance_id: InstanceId = None,
-                 models: List[ModelDetails] = None):
+                 models: List[ModelDetails] = []):
         if other is None:
             if instance_id is None:
                 raise Exception("Instance identifier can not be None and must be initializes")

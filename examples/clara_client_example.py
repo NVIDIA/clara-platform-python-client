@@ -12,14 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from nvidia_clara.jobs_client import JobsClient
-from nvidia_clara.pipelines_client import PipelinesClient
-from nvidia_clara.payloads_client import PayloadsClient
-from nvidia_clara.models_client import ModelsClient
-from nvidia_clara.base_client import BaseClient
 from nvidia_clara.clara_client import ClaraClient
-import nvidia_clara.pipeline_types as PipelineTypes
-import nvidia_clara.job_types as JobTypes
-import nvidia_clara.payload_types as PayloadTypes
-import nvidia_clara.model_types as ModelTypes
-import nvidia_clara.model_types as ClaraTypes
+import nvidia_clara.clara_types as clara_types
+
+clara_ip_address = "10.0.0.1"
+clara_port = "30031"
+
+clara_client = ClaraClient(target=clara_ip_address, port=clara_port)
+
+# Get Clara Version
+version = clara_client.version()
+
+# Get Gpu Utilization
+utilization_list = clara_client.utilization()
+
+# Stop Pipeline Service and Triton
+clara_client.stop()
