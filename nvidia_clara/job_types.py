@@ -218,7 +218,7 @@ class JobInfo(JobToken):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None, metadata: Mapping[str, str] = None):
+                 pipeline_id: pipeline_types.PipelineId = None, metadata: Mapping[str, str] = dict()):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
@@ -299,8 +299,8 @@ class JobInfo(JobToken):
 class JobFilter:
 
     def __init__(self, completed_before: datetime = None, created_after: datetime = None,
-                 has_job_state: List[JobState] = None, has_job_status: List[JobStatus] = None,
-                 pipeline_ids: List[pipeline_types.PipelineId] = None):
+                 has_job_state: List[JobState] = [], has_job_status: List[JobStatus] = [],
+                 pipeline_ids: List[pipeline_types.PipelineId] = []):
         self._completed_before = completed_before
         self._created_after = created_after
         self._has_job_state = has_job_state
@@ -363,8 +363,8 @@ class JobDetails(JobInfo):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = None,
-                 messages: List[str] = None, metadata: Mapping[str, str] = None):
+                 pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = dict(),
+                 messages: List[str] = [], metadata: Mapping[str, str] = dict()):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
