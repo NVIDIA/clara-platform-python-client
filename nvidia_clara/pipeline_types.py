@@ -92,8 +92,12 @@ class PipelineId:
 
 class PipelineDetails:
 
-    def __init__(self, pipeline_id: PipelineId = None, name: str = None, definition: List[PipelineDefinition] = [],
-                 metadata: Mapping[str, str] = dict()):
+    def __init__(self, pipeline_id: PipelineId = None, name: str = None, definition: List[PipelineDefinition] = None,
+                 metadata: Mapping[str, str] = None):
+        if definition is None:
+            definition = []
+        if metadata is None:
+            metadata = dict()
         self._pipeline_id = pipeline_id
         self._name = name
         self._definition = definition
@@ -162,7 +166,9 @@ class PipelineDetails:
 
 class PipelineInfo:
 
-    def __init__(self, pipeline_id: PipelineId = None, name: str = None, metadata: Mapping[str, str] = dict()):
+    def __init__(self, pipeline_id: PipelineId = None, name: str = None, metadata: Mapping[str, str] = None):
+        if metadata is None:
+            metadata = dict()
         self._pipeline_id = pipeline_id
         self._name = name
         self._metadata = metadata

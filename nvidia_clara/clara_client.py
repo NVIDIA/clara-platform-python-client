@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import datetime
-from typing import List, Mapping
+from typing import List, Mapping, Iterator
 import grpc
 from nvidia_clara.grpc import common_pb2, clara_pb2, clara_pb2_grpc
 from nvidia_clara.base_client import BaseClient
 import nvidia_clara.clara_types as clara_types
 import nvidia_clara.job_types as job_types
+
 
 class ClaraClient(BaseClient):
 
@@ -85,21 +86,18 @@ class ClaraClient(BaseClient):
 
         self.check_response_header(header=response.header)
 
-    def utilization(self, watch: bool = False, timeout=None) -> List[clara_types.ClaraUtilizationDetails]:
+    def list_utilization(self, timeout=None) -> List[clara_types.ClaraUtilizationDetails]:
         """
-        Method for aquiring GPU utilization information of Clara
+        Method for aquiring snapshot of GPU utilization information of Clara in a list
         
-        Args:
-            watch (boolean): Optional arguement for placing watch on obtaining GPU utilizaion information
-
         Returns:
-            List[clara_types.ClaraGpuUtilization] with stream of GPU Utilization details for Clara GPUs
+            List[clara_types.ClaraGpuUtilization] with snapshot of GPU Utilization details for Clara GPUs
         """
 
         if (self._channel is None) or (self._stub is None):
             raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
 
-        request = clara_pb2.ClaraUtilizationRequest(header=self.get_request_header(), watch=watch)
+        request = clara_pb2.ClaraUtilizationRequest(header=self.get_request_header(), watch=False)
 
         response = self._stub.Utilization(request, timeout=timeout)
 
@@ -139,12 +137,59 @@ class ClaraClient(BaseClient):
 
         return utilization_list
 
+    def stream_utilization(self, timeout=None) -> Iterator[clara_types.ClaraUtilizationDetails]:
+        """
+        Method for aquiring stream of GPU utilization information of Clara
+
+        Returns:
+            Iterator[clara_types.ClaraUtilizationDetails] with stream of GPU Utilization details for Clara GPUs
+        """
+
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        request = clara_pb2.ClaraUtilizationRequest(header=self.get_request_header(), watch=True)
+
+        response = self._stub.Utilization(request, timeout=timeout)
+
+        header_check = False
+
+        for resp in response:
+
+            if not header_check:
+                self.check_response_header(header=resp.header)
+                header_check = True
+
+            metrics = resp.gpu_metrics
+            clara_utilization_details = clara_types.ClaraUtilizationDetails()
+            for item in metrics:
+                gpu_utilization = clara_types.ClaraGpuUtilization(
+                    node_id=item.node_id,
+                    pcie_id=item.pcie_id,
+                    compute_utilization=item.compute_utilization,
+                    memory_free=item.memory_free,
+                    memory_used=item.memory_used,
+                    memory_utilization=item.memory_utilization,
+                    timestamp=self.get_timestamp(item.timestamp),
+                )
+
+                for proc_info in item.process_details:
+                    process_details = clara_types.ClaraProcessDetails(
+                        name=proc_info.name,
+                        job_id=job_types.JobId(proc_info.job_id.value)
+                    )
+                    gpu_utilization.process_details.append((process_details))
+
+                clara_utilization_details.gpu_metrics.append((gpu_utilization))
+
+            yield clara_utilization_details
+
     def version(self, timeout=None):
         """Get Clara Version"""
 
         request = clara_pb2.ClaraVersionRequest(header=self.get_request_header())
 
-        response = self._stub.Version(request,timeout=timeout)
+        response = self._stub.Version(request, timeout=timeout)
 
         self.check_response_header(header=response.header)
 
