@@ -218,13 +218,16 @@ class JobInfo(JobToken):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None, metadata: Mapping[str, str] = dict()):
+                 pipeline_id: pipeline_types.PipelineId = None, metadata: Mapping[str, str] = None):
         super().__init__(
             job_id=job_id,
             job_state=job_state,
             job_status=job_status,
             job_priority=job_priority,
         )
+        if metadata is None:
+            metadata = dict()
+
         self._date_created = date_created
         self._date_started = date_started
         self._date_stopped = date_stopped
@@ -299,8 +302,15 @@ class JobInfo(JobToken):
 class JobFilter:
 
     def __init__(self, completed_before: datetime = None, created_after: datetime = None,
-                 has_job_state: List[JobState] = [], has_job_status: List[JobStatus] = [],
-                 pipeline_ids: List[pipeline_types.PipelineId] = []):
+                 has_job_state: List[JobState] = None, has_job_status: List[JobStatus] = None,
+                 pipeline_ids: List[pipeline_types.PipelineId] = None):
+        if has_job_state is None:
+            has_job_state = []
+        if has_job_status is None:
+            has_job_status = []
+        if pipeline_ids is None:
+            pipeline_ids = []
+
         self._completed_before = completed_before
         self._created_after = created_after
         self._has_job_state = has_job_state
@@ -363,8 +373,11 @@ class JobDetails(JobInfo):
     def __init__(self, job_id: JobId = None, job_state: JobState = None, job_status: JobStatus = None,
                  job_priority: JobPriority = None, date_created: datetime = None, date_started: datetime = None,
                  date_stopped: datetime = None, name: str = None, payload_id: payload_types.PayloadId = None,
-                 pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = dict(),
-                 messages: List[str] = [], metadata: Mapping[str, str] = dict()):
+                 pipeline_id: pipeline_types.PipelineId = None, operator_details: Mapping[str, Mapping[str, T]] = None,
+                 messages: List[str] = None, metadata: Mapping[str, str] = None):
+        if metadata is None:
+            metadata = dict()
+
         super().__init__(
             job_id=job_id,
             job_state=job_state,
@@ -378,6 +391,12 @@ class JobDetails(JobInfo):
             pipeline_id=pipeline_id,
             metadata=metadata
         )
+
+        if messages is None:
+            messages = []
+        if operator_details is None:
+            operator_details = dict()
+
         self._messages = messages
         self._operator_details = operator_details
 

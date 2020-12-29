@@ -70,7 +70,6 @@ class ClaraVersionInfo:
 
 class ClaraProcessDetails:
     def __init__(self, name: str = None, job_id: JobId = None):
-
         self._name = name
         self._job_id = job_id
 
@@ -111,8 +110,10 @@ class ClaraGpuUtilization:
 
     def __init__(self, node_id: int = None, pcie_id: int = None, compute_utilization: float = None,
                  memory_free: int = None, memory_used: int = None, memory_utilization: float = None,
-                 process_details: List[ClaraProcessDetails] = [], timestamp: datetime = None):
+                 process_details: List[ClaraProcessDetails] = None, timestamp: datetime = None):
         """GPU Utilization details for a Clara process."""
+        if process_details is None:
+            process_details = []
         self._node_id = node_id
         self._pcie_id = pcie_id
         self._compute_utilization = compute_utilization
@@ -135,7 +136,7 @@ class ClaraGpuUtilization:
     @property
     def pcie_id(self) -> int:
         """PCIE device identifier of the GPU."""
-        return self._node_id
+        return self._pcie_id
 
     @pcie_id.setter
     def pcie_id(self, pcie_id: int):
@@ -205,7 +206,10 @@ class ClaraGpuUtilization:
 
 class ClaraUtilizationDetails:
     """Utilization details for a Clara process."""
-    def __init__(self, gpu_metrics: List[ClaraGpuUtilization] = []):
+
+    def __init__(self, gpu_metrics: List[ClaraGpuUtilization] = None):
+        if gpu_metrics is None:
+            gpu_metrics = []
         self._gpu_metrics = gpu_metrics
 
     @property

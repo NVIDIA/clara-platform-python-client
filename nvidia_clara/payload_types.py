@@ -147,8 +147,13 @@ class PayloadId:
 
 class PayloadDetails:
 
-    def __init__(self, payload_id: PayloadId = None, file_details: List[PayloadFileDetails] = [],
-                 payload_type: payloads_pb2.PayloadType = None, metadata: Mapping[str, str] = dict()):
+    def __init__(self, payload_id: PayloadId = None, file_details: List[PayloadFileDetails] = None,
+                 payload_type: payloads_pb2.PayloadType = None, metadata: Mapping[str, str] = None):
+        if file_details is None:
+            file_details = []
+        if metadata is None:
+            metadata = dict()
+
         self._payload_id = payload_id
         self._file_details = file_details
         self._payload_type = payload_type

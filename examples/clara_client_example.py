@@ -23,8 +23,11 @@ clara_client = ClaraClient(target=clara_ip_address, port=clara_port)
 # Get Clara Version
 version = clara_client.version()
 
-# Get Gpu Utilization
-utilization_list = clara_client.utilization()
+# Getting Gpu Utilization
+# Option 1: Getting list which will give snapshot of current GPU Utilization
+utilization_list = clara_client.list_utilization()
+# Option 2: Obtaining generator which will provide steam of GPU Utilization
+utilization_stream = clara_client.stream_utilization()
 
 # Stop Pipeline Service and Triton
 clara_client.stop()
