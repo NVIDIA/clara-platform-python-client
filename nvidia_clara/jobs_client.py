@@ -476,9 +476,9 @@ class JobsClient(BaseClient, JobsClientStub):
                     name=item.job_details.job_name,
                     payload_id=payload_types.PayloadId(item.job_details.payload_id.value),
                     pipeline_id=pipeline_types.PipelineId(item.job_details.pipeline_id.value),
-                    date_created=self.get_timestamp(item.job_details.timestamp_created),
-                    date_started=self.get_timestamp(item.job_details.timestamp_started),
-                    date_stopped=self.get_timestamp(item.job_details.timestamp_stopped),
+                    date_created=self.get_timestamp(item.job_details.created),
+                    date_started=self.get_timestamp(item.job_details.started),
+                    date_stopped=self.get_timestamp(item.job_details.stopped),
                     metadata=item.job_details.metadata
                 )
 
