@@ -275,7 +275,9 @@ def test_list_jobs():
                 pipeline_id=common_pb2.Identifier(
                     value='932b274a8f754968888807fe1eba237b'
                 ),
-                timestamp_created="2020-01-02 11:35:00Z"
+                created=common_pb2.Timestamp(
+                    value=63747538161
+                )
             )
         ),
         jobs_pb2.JobsListResponse(
@@ -293,7 +295,9 @@ def test_list_jobs():
                 pipeline_id=common_pb2.Identifier(
                     value='322b274a8f754968888807fe1eba237b'
                 ),
-                timestamp_created="2020-01-02 11:35:01Z"
+                created=common_pb2.Timestamp(
+                    value=63747538161
+                )
             )
         )
     ]
@@ -320,13 +324,13 @@ def test_list_jobs():
         assert list_jobs[0].job_id.value == "432b274a8f754968888807fe1eba237b"
         assert list_jobs[0].payload_id.value == "532b274a8f754968888807fe1eba237b"
         assert list_jobs[0].pipeline_id.value == "932b274a8f754968888807fe1eba237b"
-        assert list_jobs[0].date_created == datetime.datetime(2020, 1, 2, 11, 35)
+        assert list_jobs[0].date_created == datetime.datetime(2020, 1, 29, 12, 29, 21)
 
         assert list_jobs[1].name == "job_2"
         assert list_jobs[1].job_id.value == '212b274a8f754968888807fe1eba237b'
         assert list_jobs[1].payload_id.value == '212b274a8f754968888807fe1eba237b'
         assert list_jobs[1].pipeline_id.value == '322b274a8f754968888807fe1eba237b'
-        assert list_jobs[1].date_created == datetime.datetime(2020, 1, 2, 11, 35, 1)
+        assert list_jobs[1].date_created == datetime.datetime(2020, 1, 29, 12, 29, 21)
 
 
 def test_start_job():
