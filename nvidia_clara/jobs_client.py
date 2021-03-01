@@ -420,11 +420,11 @@ class JobsClient(BaseClient, JobsClientStub):
 
             if job_filter.completed_before is not None:
                 seconds = (job_filter.completed_before - datetime.datetime(1, 1, 1)).total_seconds()
-                request.filter.completed_before = common_pb2.Timestamp(value=seconds)
+                request.filter.completed_before.value = int(seconds)
 
             if job_filter.created_after is not None:
                 seconds = (job_filter.created_after - datetime.datetime(1, 1, 1)).total_seconds()
-                request.filter.created_after = common_pb2.Timestamp(value=seconds)
+                request.filter.created_after.value = int(seconds)
 
             if job_filter.has_job_state is not None:
                 if len(job_filter.has_job_state) > 0:

@@ -88,14 +88,20 @@ class JobStatus(Enum):
     Unknown = 0
 
     # The job has been canceled.
-    Canceled = jobs_pb2.JOB_STATUS_CANCELED,
+    Canceled = jobs_pb2.JOB_STATUS_CANCELED
 
     # The job has encountered a terminal error.
-    Faulted = jobs_pb2.JOB_STATUS_FAULTED,
+    Faulted = jobs_pb2.JOB_STATUS_FAULTED
 
     # The job is healthy.
     # If stopped, the job has completed successfully.
-    Healthy = jobs_pb2.JOB_STATUS_HEALTHY,
+    Healthy = jobs_pb2.JOB_STATUS_HEALTHY
+
+    # The job was evicted
+    Evicted = jobs_pb2.JOB_STATUS_EVICTED
+
+    # The job was terminated
+    Terminated = jobs_pb2.JOB_STATUS_TERMINATED
 
     # Maximum supported value of "JobStatus"
     Maximum = Canceled
