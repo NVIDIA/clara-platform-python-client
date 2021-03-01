@@ -440,13 +440,13 @@ class JobsClient(BaseClient, JobsClientStub):
             if job_filter.has_job_status is not None:
                 if len(job_filter.has_job_status) > 0:
                     for status in job_filter.has_job_status:
-                        if (status.value[0] < job_types.JobStatus.Minimum.value[0]) or (
-                                status.value[0] > job_types.JobStatus.Maximum.value[0]):
+                        if (status.value < job_types.JobStatus.Minimum.value) or (
+                                status.value > job_types.JobStatus.Maximum.value):
                             raise Exception("Job status in filter must be within " + str(
                                 job_types.JobStatus.Minimum) + " and " + str(
                                 job_types.JobStatus.Maximum) + ", found:" + str(status))
 
-                        request.filter.has_status.append(status.value[0])
+                        request.filter.has_status.append(status.value)
 
             if job_filter.pipeline_ids is not None:
                 if len(job_filter.pipeline_ids) > 0:
