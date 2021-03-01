@@ -32,9 +32,9 @@ $ cd ./clara-platform-python-client
 $ python3 -m pip install .
 ```
 
-#### Installing directly from [Pypi](https://pypi.org/project/nvidia-clara/)
+#### Installing directly from [Pypi](https://pypi.org/project/nvidia-clara-client/)
 ```
-$ python3 -m pip install nvidia-clara
+$ python3 -m pip install nvidia-clara-client
 ```
 
 ### Clara Client Guides

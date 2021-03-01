@@ -18,7 +18,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="nvidia-clara",
+    name="nvidia-clara-client",
     version="0.8.1",
     author="NVIDIA Clara Deploy",
     description="Python package to interact with Clara Platform Server API",
