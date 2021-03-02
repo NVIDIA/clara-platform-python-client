@@ -41,12 +41,6 @@ class PayloadFileDetails:
             other(payloads_pb2.PayloadFileDetails): If specified, object information replicated
         """
         if other is None:
-            if mode is None:
-                raise Exception("Mode parameter must be initalized to a non-null integer value")
-            if (name is None) or (name == ""):
-                raise Exception("Name parameter must be initalized to a non-null string value")
-            if size is None:
-                raise Exception("Size must be  to a non-null integer value")
             self._mode = mode
             self._name = name
             self._size = size
