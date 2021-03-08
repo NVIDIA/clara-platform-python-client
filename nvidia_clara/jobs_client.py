@@ -16,6 +16,7 @@ import datetime
 from typing import List, Mapping
 import grpc
 import itertools
+
 from nvidia_clara.grpc import common_pb2, jobs_pb2, jobs_pb2_grpc
 from nvidia_clara.base_client import BaseClient
 import nvidia_clara.job_types as job_types
@@ -222,15 +223,15 @@ class JobsClient(BaseClient, JobsClientStub):
 
         try:
             # Check to see if in form of seconds since year one
-            seconds_int = float(seconds_since_year_one.value) - 62167219200
+            seconds_int = float(seconds_since_year_one.value) - 62135596800
         except:
             # Otherwise parse timestamp
-            return datetime.datetime.strptime(seconds_since_year_one, "%Y-%m-%d %H:%M:%SZ")
+            return datetime.datetime.strptime(seconds_since_year_one, "%Y-%m-%d %H:%M:%SZ").astimezone(datetime.timezone.utc)
 
         if seconds_int < 0:
             return None
 
-        result_date = datetime.datetime.fromtimestamp(seconds_int)
+        result_date = datetime.datetime.fromtimestamp(seconds_int).astimezone(datetime.timezone.utc)
 
         return result_date
 
