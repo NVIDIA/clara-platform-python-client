@@ -14,6 +14,7 @@
 
 import datetime
 
+
 import nvidia_clara.grpc.common_pb2 as common_pb2
 import nvidia_clara.grpc.jobs_pb2 as jobs_pb2
 
@@ -241,6 +242,7 @@ def test_get_status():
 
         print(job_details.job_id.value, job_details.job_state, job_details.job_status)
         print(job_details.date_created)
+        print(datetime.datetime.fromtimestamp(float(fake_seconds_from_epoch) - 62135596800))
 
         assert job_details.name == "job_1"
         assert job_details.job_id.value == '432b274a8f754968888807fe1eba237b'
@@ -249,7 +251,7 @@ def test_get_status():
         assert job_details.job_state == 2
         assert job_details.job_status == 1
         assert job_details.date_created == datetime.datetime.fromtimestamp(
-            float(fake_seconds_from_epoch) - 62167219200)
+            float(fake_seconds_from_epoch) - 62135596800).astimezone(datetime.timezone.utc)
 
 
 def test_list_jobs():
@@ -276,7 +278,8 @@ def test_list_jobs():
                     value='932b274a8f754968888807fe1eba237b'
                 ),
                 created=common_pb2.Timestamp(
-                    value=63747538161
+                    value=63750823591
+
                 )
             )
         ),
@@ -296,7 +299,8 @@ def test_list_jobs():
                     value='322b274a8f754968888807fe1eba237b'
                 ),
                 created=common_pb2.Timestamp(
-                    value=63747538161
+                    value=63750823591
+
                 )
             )
         )
@@ -324,13 +328,13 @@ def test_list_jobs():
         assert list_jobs[0].job_id.value == "432b274a8f754968888807fe1eba237b"
         assert list_jobs[0].payload_id.value == "532b274a8f754968888807fe1eba237b"
         assert list_jobs[0].pipeline_id.value == "932b274a8f754968888807fe1eba237b"
-        assert list_jobs[0].date_created == datetime.datetime(2020, 1, 29, 12, 29, 21)
+        assert list_jobs[0].date_created == datetime.datetime(2021, 3, 8, 18, 6, 31, tzinfo=datetime.timezone.utc)
 
         assert list_jobs[1].name == "job_2"
         assert list_jobs[1].job_id.value == '212b274a8f754968888807fe1eba237b'
         assert list_jobs[1].payload_id.value == '212b274a8f754968888807fe1eba237b'
         assert list_jobs[1].pipeline_id.value == '322b274a8f754968888807fe1eba237b'
-        assert list_jobs[1].date_created == datetime.datetime(2020, 1, 29, 12, 29, 21)
+        assert list_jobs[1].date_created == datetime.datetime(2021, 3, 8, 18, 6, 31, tzinfo=datetime.timezone.utc)
 
 
 def test_start_job():

@@ -26,7 +26,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/NVIDIA/clara-platform-python-client",
-    install_requires=['grpcio', 'protobuf'],
+    install_requires=['grpcio', 'protobuf', 'pytz'],
     packages=setuptools.find_packages('.'),
     classifiers=[
         "Programming Language :: Python :: 3",
