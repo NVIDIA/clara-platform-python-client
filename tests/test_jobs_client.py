@@ -14,7 +14,6 @@
 
 import datetime
 
-
 import nvidia_clara.grpc.common_pb2 as common_pb2
 import nvidia_clara.grpc.jobs_pb2 as jobs_pb2
 
@@ -279,7 +278,6 @@ def test_list_jobs():
                 ),
                 created=common_pb2.Timestamp(
                     value=63750823591
-
                 )
             )
         ),
@@ -300,7 +298,6 @@ def test_list_jobs():
                 ),
                 created=common_pb2.Timestamp(
                     value=63750823591
-
                 )
             )
         )

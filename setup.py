@@ -19,14 +19,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="nvidia-clara-client",
-    version="0.8.1.1",
+    version="0.8.1.2",
     author="NVIDIA Clara Deploy",
     description="Python package to interact with Clara Platform Server API",
     license='Apache Software License (http://www.apache.org/licenses/LICENSE-2.0)',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/NVIDIA/clara-platform-python-client",
-    install_requires=['grpcio', 'protobuf', 'pytz'],
+    install_requires=['grpcio', 'protobuf'],
     packages=setuptools.find_packages('.'),
     classifiers=[
         "Programming Language :: Python :: 3",
