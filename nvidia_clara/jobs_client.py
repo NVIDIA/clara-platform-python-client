@@ -420,11 +420,21 @@ class JobsClient(BaseClient, JobsClientStub):
             request_filter = jobs_pb2.JobsListRequest.JobFilter
 
             if job_filter.completed_before is not None:
-                seconds = (job_filter.completed_before - datetime.datetime(1, 1, 1)).total_seconds()
+                day_one = datetime.datetime(1, 1, 1)
+                if job_filter.completed_before.tzinfo is not None \
+                        and job_filter.completed_before.tzinfo.utcoffset(job_filter.completed_before) is not None:
+                    day_one = datetime.datetime(1, 1, 1, tzinfo=job_filter.completed_before.tzinfo)
+
+                seconds = (job_filter.completed_before - day_one).total_seconds()
                 request.filter.completed_before.value = int(seconds)
 
             if job_filter.created_after is not None:
-                seconds = (job_filter.created_after - datetime.datetime(1, 1, 1)).total_seconds()
+                day_one = datetime.datetime(1, 1, 1)
+                if job_filter.created_after.tzinfo is not None \
+                        and job_filter.created_after.tzinfo.utcoffset(job_filter.created_after) is not None:
+                    day_one = datetime.datetime(1, 1, 1, tzinfo=job_filter.created_after.tzinfo)
+
+                seconds = (job_filter.created_after - day_one).total_seconds()
                 request.filter.created_after.value = int(seconds)
 
             if job_filter.has_job_state is not None:
