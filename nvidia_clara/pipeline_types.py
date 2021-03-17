@@ -69,19 +69,19 @@ class PipelineId:
     def value(self):
         return self._value
 
-    def _eq_(self, other):
+    def __eq__(self, other):
         return self._value == other._value
 
-    def _ne_(self, other):
+    def __ne__(self, other):
         return not (self == other)
 
-    def _repr_(self):
+    def __repr__(self):
         return "%s" % (self._value)
 
-    def _str_(self):
+    def __str__(self):
         return "%s" % (self._value)
 
-    def _hash_(self):
+    def __hash__(self):
         return hash(self._value)
 
     def to_grpc_value(self):
