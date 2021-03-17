@@ -33,19 +33,19 @@ class CatalogId:
     def value(self):
         return self._value
 
-    def _eq_(self, other) -> bool:
+    def __eq__(self, other) -> bool:
         return self._value == other.value
 
-    def _ne_(self, other) -> bool:
+    def __ne__(self, other) -> bool:
         return not (self == other)
 
-    def _repr_(self):
+    def __repr__(self):
         return "%s" % self._value
 
-    def _str_(self):
+    def __str__(self):
         return "%s" % self._value
 
-    def _hash_(self):
+    def __hash__(self):
         return hash(self._value)
 
     def to_grpc_value(self):
@@ -79,19 +79,19 @@ class ModelId:
     def value(self):
         return self._value
 
-    def _eq_(self, other) -> bool:
+    def __eq__(self, other) -> bool:
         return self._value == other.value
 
-    def _ne_(self, other) -> bool:
+    def __ne__(self, other) -> bool:
         return not (self == other)
 
-    def _repr_(self):
+    def __repr__(self):
         return "%s" % self._value
 
-    def _str_(self):
+    def __str__(self):
         return "%s" % self._value
 
-    def _hash_(self):
+    def __hash__(self):
         return hash(self._value)
 
     def to_grpc_value(self):
@@ -238,19 +238,19 @@ class InstanceId:
     def value(self):
         return self._value
 
-    def _eq_(self, other) -> bool:
+    def __eq__(self, other) -> bool:
         return self._value == other.value
 
-    def _ne_(self, other) -> bool:
+    def __ne__(self, other) -> bool:
         return not (self == other)
 
-    def _repr_(self):
+    def __repr__(self):
         return "%s" % self._value
 
-    def _str_(self):
+    def __str__(self):
         return "%s" % self._value
 
-    def _hash_(self):
+    def __hash__(self):
         return hash(self._value)
 
     def to_grpc_value(self):
