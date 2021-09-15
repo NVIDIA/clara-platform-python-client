@@ -29,6 +29,7 @@ An intuitive python 3 package to develop applications with NVIDIA Clara Deploy. 
 ```
 $ git clone --recursive git@github.com:NVIDIA/clara-platform-python-client.git
 $ cd ./clara-platform-python-client
+$ python3 -m pip install requirements.txt
 $ python3 -m pip install .
 ```
 
