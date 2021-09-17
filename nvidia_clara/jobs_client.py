@@ -397,7 +397,7 @@ class JobsClient(BaseClient, JobsClientStub):
 
     def list_jobs(self, job_filter: job_types.JobFilter = None, timeout=None) -> List[job_types.JobInfo]:
         """
-        Provides list of currently running jobs
+        Provides list of current jobs on platform
 
         Args:
             job_filter (job_types.JobFilter): Optional filter used to limit the number of
@@ -466,36 +466,134 @@ class JobsClient(BaseClient, JobsClientStub):
 
         response = self._stub.List(request, timeout=timeout)
 
-        responses = [resp for resp in response]
-
+        check_header = True
         result = []
+        for item in response:
 
-        if len(responses) > 0:
+            if check_header:
+                self.check_response_header(header=item.header)
+                check_header = False
 
-            self.check_response_header(header=responses[0].header)
+            if (item.job_details is None) or (item.job_details.job_id.value == ''):
+                continue
 
-            for item in responses:
+            info = job_types.JobInfo(
+                job_id=job_types.JobId(item.job_details.job_id.value),
+                job_priority=item.job_details.priority,
+                job_state=item.job_details.state,
+                job_status=item.job_details.status,
+                name=item.job_details.job_name,
+                payload_id=payload_types.PayloadId(item.job_details.payload_id.value),
+                pipeline_id=pipeline_types.PipelineId(item.job_details.pipeline_id.value),
+                date_created=self.get_timestamp(item.job_details.created),
+                date_started=self.get_timestamp(item.job_details.started),
+                date_stopped=self.get_timestamp(item.job_details.stopped),
+                metadata=item.job_details.metadata
+            )
 
-                if (item.job_details is None) or (item.job_details.job_id.value == ''):
-                    continue
-
-                info = job_types.JobInfo(
-                    job_id=job_types.JobId(item.job_details.job_id.value),
-                    job_priority=item.job_details.priority,
-                    job_state=item.job_details.state,
-                    job_status=item.job_details.status,
-                    name=item.job_details.job_name,
-                    payload_id=payload_types.PayloadId(item.job_details.payload_id.value),
-                    pipeline_id=pipeline_types.PipelineId(item.job_details.pipeline_id.value),
-                    date_created=self.get_timestamp(item.job_details.created),
-                    date_started=self.get_timestamp(item.job_details.started),
-                    date_stopped=self.get_timestamp(item.job_details.stopped),
-                    metadata=item.job_details.metadata
-                )
-
-                result.append(info)
+            result.append(info)
 
         return result
+
+
+    def stream_jobs(self, job_filter: job_types.JobFilter = None, timeout=None):
+        """
+        Provides generator to stream current jobs on platform
+
+        Args:
+            job_filter (job_types.JobFilter): Optional filter used to limit the number of
+            pipeline job records return
+
+        Returns:
+            list of job_types.JobInfo with known pipeline job details from the server.
+        """
+
+        if (self._channel is None) or (self._stub is None):
+            raise Exception("Connection is currently closed. Please run reconnect() to reopen connection")
+
+        empty = job_types.JobFilter()
+
+        request = jobs_pb2.JobsListRequest(
+            header=self.get_request_header()
+        )
+
+        if job_filter != empty and job_filter is not None:
+            request_filter = jobs_pb2.JobsListRequest.JobFilter
+
+            if job_filter.completed_before is not None:
+                day_one = datetime.datetime(1, 1, 1)
+                if job_filter.completed_before.tzinfo is not None \
+                        and job_filter.completed_before.tzinfo.utcoffset(job_filter.completed_before) is not None:
+                    day_one = datetime.datetime(1, 1, 1, tzinfo=job_filter.completed_before.tzinfo)
+
+                seconds = (job_filter.completed_before - day_one).total_seconds()
+                request.filter.completed_before.value = int(seconds)
+
+            if job_filter.created_after is not None:
+                day_one = datetime.datetime(1, 1, 1)
+                if job_filter.created_after.tzinfo is not None \
+                        and job_filter.created_after.tzinfo.utcoffset(job_filter.created_after) is not None:
+                    day_one = datetime.datetime(1, 1, 1, tzinfo=job_filter.created_after.tzinfo)
+
+                seconds = (job_filter.created_after - day_one).total_seconds()
+                request.filter.created_after.value = int(seconds)
+
+            if job_filter.has_job_state is not None:
+                if len(job_filter.has_job_state) > 0:
+                    for state in job_filter.has_job_state:
+                        if (state.value < job_types.JobState.Minimum.value) or (
+                                state.value > job_types.JobState.Maximum.value):
+                            raise Exception("Job states in filter must be within " + str(
+                                job_types.JobState.Minimum) + " and " + str(
+                                job_types.JobState.Maximum) + ", found:" + str(state))
+
+                        request.filter.has_state.append(state.value)
+
+            if job_filter.has_job_status is not None:
+                if len(job_filter.has_job_status) > 0:
+                    for status in job_filter.has_job_status:
+                        if (status.value < job_types.JobStatus.Minimum.value) or (
+                                status.value > job_types.JobStatus.Maximum.value):
+                            raise Exception("Job status in filter must be within " + str(
+                                job_types.JobStatus.Minimum) + " and " + str(
+                                job_types.JobStatus.Maximum) + ", found:" + str(status))
+
+                        request.filter.has_status.append(status.value)
+
+            if job_filter.pipeline_ids is not None:
+                if len(job_filter.pipeline_ids) > 0:
+                    for pipe_id in job_filter.pipeline_ids:
+                        request.filter.pipeline_id.append(pipe_id.to_grpc_value())
+
+        response = self._stub.List(request, timeout=timeout)
+
+        check_header = True
+
+        for item in response:
+
+            if check_header:
+                self.check_response_header(header=item.header)
+                check_header = False
+
+            if (item.job_details is None) or (item.job_details.job_id.value == ''):
+                continue
+
+            info = job_types.JobInfo(
+                job_id=job_types.JobId(item.job_details.job_id.value),
+                job_priority=item.job_details.priority,
+                job_state=item.job_details.state,
+                job_status=item.job_details.status,
+                name=item.job_details.job_name,
+                payload_id=payload_types.PayloadId(item.job_details.payload_id.value),
+                pipeline_id=pipeline_types.PipelineId(item.job_details.pipeline_id.value),
+                date_created=self.get_timestamp(item.job_details.created),
+                date_started=self.get_timestamp(item.job_details.started),
+                date_stopped=self.get_timestamp(item.job_details.stopped),
+                metadata=item.job_details.metadata
+            )
+
+            yield info
+
 
     def start_job(self, job_id: job_types.JobId, named_values: Mapping[str, str] = None,
                   timeout=None) -> job_types.JobToken:
