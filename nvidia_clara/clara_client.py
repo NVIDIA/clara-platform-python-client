@@ -127,8 +127,11 @@ class ClaraClient(BaseClient):
                 for proc_info in item.process_details:
                     process_details = clara_types.ClaraProcessDetails(
                         name=proc_info.name,
-                        job_id=job_types.JobId(proc_info.job_id.value)
                     )
+
+                    if proc_info.job_id.value:
+                        process_details.job_id = job_types.JobId(proc_info.job_id.value)
+
                     gpu_utilization.process_details.append((process_details))
 
                 clara_utilization_details.gpu_metrics.append((gpu_utilization))
