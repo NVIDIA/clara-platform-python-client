@@ -35,7 +35,6 @@ $ python3 -m pip install .
 
 #### Installing directly from [Pypi](https://pypi.org/project/nvidia-clara-client/)
 ```
-$ python3 -m pip install requirements.txt
 $ python3 -m pip install nvidia-clara-client
 ```
 
